@@ -1,30 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Toucan Creative Technology — creative technical collaboration for interactive art, sculpture and installation.">
+  <title>Toucan Creative Technology — Creative Technical Collaboration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <header class="site-header">
+    <a class="logo" href="#top" aria-label="Toucan Creative Technology home">
+      <span class="logo-mark">T</span>
+      <span>Toucan<br><em>Creative Technology</em></span>
+    </a>
 
-    <main>
-        <img src="images/8d5028aa8744c86ea59dc9b6b4ff421e.jpg" alt="My photo">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#work">Work</a>
+      <a href="#approach">Approach</a>
+      <a href="#about">About</a>
+      <a class="nav-contact" href="#contact">Start a project</a>
+    </nav>
 
-        <h1>Hello, I'm John</h1>
+    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
 
-        <p>
-            I'm a designer and developer based in Germany.
-            I enjoy creating simple and useful things for the web.
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Creative technical collaborator</p>
+        <h1>Bringing<br><span>interactive</span><br>ideas to life.</h1>
+        <p class="hero-intro">
+          Electronics, embedded systems and software for artists, creative teams
+          and ambitious physical projects.
         </p>
+        <a class="button" href="#contact">Start a project <span>↗</span></a>
+      </div>
 
-        <a href="mailto:hello@example.com">
-            hello@example.com
-        </a>
-    </main>
+      <div class="hero-visual" aria-label="Abstract representation of an interactive object">
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+        <div class="wire wire-one"></div>
+        <div class="wire wire-two"></div>
+        <div class="visual-label">
+          <span>01</span>
+          <span>ART × TECHNOLOGY</span>
+        </div>
+      </div>
+    </section>
 
-    <script src="script.js"></script>
+    <section class="statement section">
+      <p class="section-number">01 / THE IDEA</p>
+      <div class="statement-content">
+        <h2>Your idea.<br><span>The technology to make it possible.</span></h2>
+        <p>
+          Maybe it should move, respond, light up, react to people, make sound,
+          or behave in a way that isn't immediately obvious.
+        </p>
+        <p>
+          That's where I come in. I work alongside artists and creative teams
+          to design and build the technology that makes interactive work possible —
+          while keeping the creative vision at the centre.
+        </p>
+      </div>
+    </section>
+
+    <section id="work" class="work section">
+      <div class="section-heading">
+        <div>
+          <p class="section-number">02 / SELECTED WORK</p>
+          <h2>Making things<br><span>that do something.</span></h2>
+        </div>
+        <p class="heading-note">One interesting project is enough to start.</p>
+      </div>
+
+      <article class="project">
+        <div class="project-image">
+          <div class="project-art">
+            <div class="project-ring"></div>
+            <div class="project-core"></div>
+            <div class="project-lines"></div>
+          </div>
+          <span class="image-caption">Interactive sculpture / 2026</span>
+        </div>
+
+        <div class="project-info">
+          <p class="project-type">Electronics · Embedded Systems · Interaction</p>
+          <h3>Interactive Sculpture</h3>
+          <p>
+            Electronics and software development for an interactive sculpture,
+            created in collaboration with an established artist for a medical company.
+          </p>
+          <p class="project-note">
+            <span>Role</span> Technical design · prototyping · embedded systems · integration
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="capabilities section">
+      <p class="section-number">03 / WHAT I DO</p>
+      <h2>Technology at the<br><span>point of creative possibility.</span></h2>
+
+      <div class="capability-grid">
+        <article>
+          <span class="capability-number">01</span>
+          <h3>Electronics</h3>
+          <p>Custom electronics, sensors, lighting, motors and control systems.</p>
+        </article>
+        <article>
+          <span class="capability-number">02</span>
+          <h3>Embedded Systems</h3>
+          <p>Microcontrollers, firmware and the software that makes physical things behave.</p>
+        </article>
+        <article>
+          <span class="capability-number">03</span>
+          <h3>Interaction</h3>
+          <p>Designing how people, environments and objects respond to one another.</p>
+        </article>
+        <article>
+          <span class="capability-number">04</span>
+          <h3>Prototyping</h3>
+          <p>Turning an idea into something you can see, touch, test and experience.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="approach" class="approach section">
+      <div class="approach-mark">T</div>
+      <div>
+        <p class="section-number">04 / THE DIFFERENCE</p>
+        <h2>Technical expertise<br><span>without taking over<br>the creative process.</span></h2>
+        <p class="large-copy">
+          You don't need another person telling you what your artwork should be.
+        </p>
+        <p>
+          I collaborate with artists to understand what they're trying to achieve,
+          explore what's technically possible, and find practical ways of making it happen.
+        </p>
+        <p>
+          The goal isn't to turn an artistic idea into an engineering project.
+          <strong>It's to use engineering to make the artistic idea possible.</strong>
+        </p>
+      </div>
+    </section>
+
+    <section class="process section">
+      <div class="section-heading">
+        <div>
+          <p class="section-number">05 / PROCESS</p>
+          <h2>From idea<br><span>to installation.</span></h2>
+        </div>
+      </div>
+
+      <div class="process-grid">
+        <article>
+          <span>01</span>
+          <h3>Explore</h3>
+          <p>We talk through the idea, what you want the work to do, and what the audience should experience.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Prototype</h3>
+          <p>We test the interesting technical problems before committing to the final system.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Build</h3>
+          <p>Electronics, software and physical systems come together into the finished work.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Install</h3>
+          <p>I help get the technology working reliably in the real environment.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="about section">
+      <div class="about-image">
+        <img src="images/profile.jpg" alt="Murali Wood" onerror="this.style.display='none'; this.parentElement.classList.add('no-image')">
+        <span>MW</span>
+      </div>
+      <div class="about-copy">
+        <p class="section-number">06 / ABOUT</p>
+        <h2>I'm Murali.</h2>
+        <p class="large-copy">
+          I'm an embedded systems engineer interested in the space between
+          technology, objects and art.
+        </p>
+        <p>
+          I started Toucan Creative Technology to work with people who have
+          ambitious creative ideas and need someone to make the technical side possible.
+        </p>
+        <p>
+          I believe technology shouldn't make interactive art feel more complicated.
+          <strong>It should make more interesting art possible.</strong>
+        </p>
+      </div>
+    </section>
+
+    <section id="contact" class="contact section">
+      <p class="section-number">07 / LET'S TALK</p>
+      <h2>Have<br><span>an idea?</span></h2>
+      <p>
+        Developing a sculpture, installation, exhibition, display or other
+        creative project involving electronics? I'd love to hear about it.
+      </p>
+      <a class="email-link" href="mailto:info@toucancreative.tech">
+        info@toucancreative.tech <span>↗</span>
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <span class="logo-mark">T</span>
+      <span>Toucan Creative Technology</span>
+    </div>
+    <div>© <span id="year"></span> Murali Wood</div>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
