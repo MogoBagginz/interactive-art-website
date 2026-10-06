@@ -1,0 +1,13 @@
+# IDE settings
+.idea/
+
+# Dependencies
+node_modules/
+
+# Environment/secrets
+.env
+.env.local
+
+# Build output
+dist/
+build/
