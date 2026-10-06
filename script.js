@@ -1,35 +1,20 @@
-const menuButton = document.querySelector(".menu-toggle");
-const nav = document.querySelector(".nav");
+const menuToggle = document.querySelector(".menu-toggle");
+const nav = document.querySelector("#main-nav");
 
-if (menuButton && nav) {
-  menuButton.addEventListener("click", () => {
+if (menuToggle && nav) {
+  menuToggle.addEventListener("click", () => {
     const open = nav.classList.toggle("open");
-    menuButton.setAttribute("aria-expanded", open);
+    menuToggle.setAttribute("aria-expanded", String(open));
+    menuToggle.textContent = open ? "Close" : "Menu";
   });
 
   nav.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", () => {
       nav.classList.remove("open");
-      menuButton.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.textContent = "Menu";
     });
   });
 }
 
-document.getElementById("year").textContent = new Date().getFullYear();
-
-// Small scroll reveal for sections.
-const sections = document.querySelectorAll(".section");
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.08 });
-
-sections.forEach(section => {
-  section.classList.add("reveal");
-  observer.observe(section);
-});
+document.querySelector("#year").textContent = new Date().getFullYear();

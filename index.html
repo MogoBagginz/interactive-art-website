@@ -3,158 +3,262 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Toucan Creative Technology — creative technical collaboration for interactive art, sculpture and installation.">
-  <title>Toucan Creative Technology — Creative Technical Collaboration</title>
+  <meta name="author" content="Murali Wood">
+  <meta name="theme-color" content="#111111">
+  <title>Toucan Creative Technology — Creative Technology for Ambitious Physical Ideas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="site-header">
-    <a class="logo" href="#top" aria-label="Toucan Creative Technology home">
-      <span class="logo-mark">T</span>
-      <span>Toucan<br><em>Creative Technology</em></span>
+    <a class="brand" href="#top" aria-label="Toucan Creative Technology home">
+      <img src="images/toucan_horizontal_small_logo_big_text.png" alt="Toucan Creative Technology" class="logo">
     </a>
 
-    <nav class="nav" aria-label="Main navigation">
+    <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
+
+    <nav id="main-nav" class="nav" aria-label="Main navigation">
       <a href="#work">Work</a>
+      <a href="#capabilities">Capabilities</a>
       <a href="#approach">Approach</a>
       <a href="#about">About</a>
-      <a class="nav-contact" href="#contact">Start a project</a>
+      <a class="nav-cta" href="#contact">Start a project</a>
     </nav>
-
-    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span>
-    </button>
   </header>
 
   <main id="top">
-    <section class="hero">
+    <section class="hero section">
       <div class="hero-copy">
-        <p class="eyebrow">Creative technical collaborator</p>
-        <h1>Bringing<br><span>interactive</span><br>ideas to life.</h1>
+        <h1>Technology for<br><em>ambitious</em> physical ideas.</h1>
         <p class="hero-intro">
-          Electronics, embedded systems and software for artists, creative teams
-          and ambitious physical projects.
+          I’m Murali Wood, an embedded systems engineer and creative technical collaborator.
+          I work with artists, designers and creative teams to bring interactive sculptures,
+          installations and physical experiences to life.
         </p>
-        <a class="button" href="#contact">Start a project <span>↗</span></a>
-      </div>
-
-      <div class="hero-visual" aria-label="Abstract representation of an interactive object">
-        <div class="orb orb-one"></div>
-        <div class="orb orb-two"></div>
-        <div class="wire wire-one"></div>
-        <div class="wire wire-two"></div>
-        <div class="visual-label">
-          <span>01</span>
-          <span>ART × TECHNOLOGY</span>
+        <div class="actions">
+          <a class="button button-dark" href="#work">Explore the work</a>
+          <a class="text-link" href="#contact">Start a conversation <span>↗</span></a>
         </div>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-placeholder">
+          <span>PROJECT IMAGE</span>
+          <small>Replace with your strongest installation photograph</small>
+        </div>
+        <div class="hero-caption">Interactive sculpture · Embedded electronics · 2026</div>
       </div>
     </section>
 
     <section class="statement section">
-      <div class="statement-content">
-        <h2>Your idea.<br><span>The technology to make it possible.</span></h2>
-        <p>
-          Maybe it should move, respond, light up, react to people, make sound,
-          or behave in a way that isn't immediately obvious.
-        </p>
-        <p>
-          That's where I come in. I work alongside artists and creative teams
-          to design and build the technology that makes interactive work possible —
-          while keeping the creative vision at the centre.
-        </p>
-      </div>
+      <h2>You have the idea.<br><em>I make the technology work.</em></h2>
+      <p>
+        An artist shouldn't have to become an electronics engineer to create an interactive artwork.
+        My role is to understand the creative intention, explore what technology can add, and build
+        the systems that make the idea possible.
+      </p>
     </section>
 
-    <section id="approach" class="approach section">
-      <div class="approach-mark">T</div>
-      <div>
-        <h2>Technical expertise<br><span>without taking over<br>the creative process.</span></h2>
-        <p>
-          I collaborate with artists to understand what they're trying to achieve,
-          explore what's technically possible, and find practical ways of making it happen.
-        </p>
-        <p>
-          The goal isn't to turn an artistic idea into an engineering project.
-          <strong>It's to use engineering to make the artistic idea possible.</strong>
-        </p>
-      </div>
-    </section>
-
-    <section class="process section">
+    <section id="work" class="work section">
       <div class="section-heading">
         <div>
-          <h2>From idea<br><span>to installation.</span></h2>
+          <h2>From creative idea<br>to working experience.</h2>
+        </div>
+        <p>
+          Every project is a collaboration between creative intent and technical possibility.
+          The work below shows how those two sides can meet.
+        </p>
+      </div>
+
+      <article class="project-feature">
+        <div class="project-image">
+          <div class="visual-placeholder dark">
+            <span>FEATURED PROJECT</span>
+            <small>Replace with sculpture / installation photography</small>
+          </div>
+        </div>
+        <div class="project-copy">
+          <h3>Interactive Sculpture</h3>
+          <p class="project-meta">Embedded electronics · Sensing · Control · Installation</p>
+          <p>
+            Working alongside an established artist, I developed the embedded electronic system
+            behind an interactive sculpture for a medical company. The project explores how sensing,
+            electronics and programmed behaviour can become part of the artwork itself.
+          </p>
+          <a class="text-link" href="#case-study">View the project <span>↗</span></a>
+        </div>
+      </article>
+
+<!--      <div class="project-grid">-->
+<!--        <article class="project-card">-->
+<!--          <div class="card-image"><span>PROJECT 02</span></div>-->
+<!--          <p class="eyebrow">Coming soon</p>-->
+<!--          <h3>Interactive installation</h3>-->
+<!--          <p>A future case study for another creative technology project.</p>-->
+<!--        </article>-->
+<!--        <article class="project-card">-->
+<!--          <div class="card-image"><span>PROJECT 03</span></div>-->
+<!--          <p class="eyebrow">Coming soon</p>-->
+<!--          <h3>Physical interaction</h3>-->
+<!--          <p>A future case study showing sensing, control or physical response.</p>-->
+<!--        </article>-->
+<!--      </div>-->
+<!--    </section>-->
+
+    <section id="case-study" class="case-study section">
+      <div class="case-intro">
+        <h2>Interactive Sculpture</h2>
+        <p class="lead">
+          A collaboration between artist, engineer and technology.
+        </p>
+      </div>
+
+      <div class="case-layout">
+        <div>
+          <p class="eyebrow">01 / The idea</p>
+          <h3>How do you turn an artistic intention into a reliable physical interaction?</h3>
+        </div>
+        <div>
+          <p>
+            The sculpture was conceived as a physical artwork that responds to its environment.
+            The technical challenge was not simply to make electronics function, but to make the
+            interaction feel natural and integral to the work rather than like a system attached to it.
+          </p>
         </div>
       </div>
 
-      <div class="process-grid">
+      <div class="case-layout">
+        <div>
+          <p class="eyebrow">02 / Collaboration</p>
+          <h3>You remain the artist.</h3>
+        </div>
+        <div>
+          <p>
+            My role is not to define what the artwork should be. It is to understand what the artist
+            is trying to achieve and explore what technology can do to support that vision.
+          </p>
+        </div>
+      </div>
+
+      <div class="case-process">
+        <div><strong>Concept</strong><span>Understand the intention</span></div>
+        <div><strong>Prototype</strong><span>Test the uncertain parts</span></div>
+        <div><strong>Build</strong><span>Develop the system</span></div>
+        <div><strong>Install</strong><span>Make it work in the real world</span></div>
+      </div>
+
+    </section>
+
+    <section id="capabilities" class="capabilities section">
+      <div class="section-heading">
+        <div>
+          <h2>Technology in service<br>of the idea.</h2>
+        </div>
+        <p>
+          Every project is different. Sometimes the technology is invisible; sometimes it becomes
+          part of the artwork itself.
+        </p>
+      </div>
+
+      <div class="capability-grid">
         <article>
-          <span>01</span>
-          <h3>Explore</h3>
-          <p>We talk through the idea, what you want the work to do, and what the audience should experience.</p>
+          <span class="number">01</span>
+          <h3>Interactive systems</h3>
+          <p>Creating physical interactions between people, objects and environments.</p>
+          <ul><li>Proximity</li><li>Motion</li><li>Touch</li><li>Environmental sensing</li><li>Custom sensors</li></ul>
         </article>
         <article>
-          <span>02</span>
-          <h3>Prototype</h3>
-          <p>We test the interesting technical problems before committing to the final system.</p>
+          <span class="number">02</span>
+          <h3>Embedded electronics</h3>
+          <p>Designing the electronic systems that make an installation behave as intended.</p>
+          <ul><li>Microcontrollers</li><li>Custom electronics</li><li>PCB development</li><li>Power systems</li><li>Hardware integration</li></ul>
         </article>
         <article>
-          <span>03</span>
-          <h3>Build</h3>
-          <p>Electronics, software and physical systems come together into the finished work.</p>
+          <span class="number">03</span>
+          <h3>Embedded software</h3>
+          <p>Turning electronics into responsive, reliable behaviour.</p>
+          <ul><li>Firmware</li><li>Real-time control</li><li>Sensor processing</li><li>Communications</li><li>Control logic</li></ul>
         </article>
         <article>
-          <span>04</span>
-          <h3>Install</h3>
-          <p>I help get the technology working reliably in the real environment.</p>
+          <span class="number">04</span>
+          <h3>Light, movement & sound</h3>
+          <p>Giving physical artworks a response that people can see, hear and feel.</p>
+          <ul><li>LEDs</li><li>Lighting systems</li><li>Motors</li><li>Actuators</li><li>Sound interfaces</li></ul>
         </article>
+        <article>
+          <span class="number">05</span>
+          <h3>Prototyping & installation</h3>
+          <p>Taking an experimental idea through testing and into the real world.</p>
+          <ul><li>Proof of concept</li><li>Prototyping</li><li>Testing</li><li>System integration</li><li>Commissioning</li></ul>
+        </article>
+      </div>
+
+      <div class="technical-strip">
+        <span>TECHNICAL CAPABILITY</span>
+        <p>Microcontrollers · Firmware · C/C++ · PCB design · Sensors · Power · Communications · Hardware/software integration · Testing · Debugging · Installation · Documentation</p>
       </div>
     </section>
 
     <section id="about" class="about section">
       <div class="about-image">
-        <img src="images/profile.jpg" alt="Murali Wood" onerror="this.style.display='none'; this.parentElement.classList.add('no-image')">
-        <span>MW</span>
+        <img src="images/profile.jpg" alt="Murali Wood — Toucan Creative Technology" loading="lazy">
       </div>
       <div class="about-copy">
-        <h2>I'm Murali.</h2>
-        <p class="large-copy">
-          I'm an embedded systems engineer interested in the space between
-          technology, objects and art.
+        <h2>Meet Murali.</h2>
+        <p class="lead">
+          I’m Murali Wood, an embedded systems engineer and the founder of Toucan Creative Technology.
         </p>
         <p>
-          I started Toucan Creative Technology to work with people who have
-          ambitious creative ideas and need someone to make the technical side possible.
+          I started Toucan because I believe technology can make physical art more engaging,
+          surprising and alive. I’m interested in the point where engineering meets creativity:
+          where electronics stop being components and become movement, light, sound, interaction and experience.
         </p>
         <p>
-          I believe technology shouldn't make interactive art feel more complicated.
-          <strong>It should make more interesting art possible.</strong>
+          Toucan exists to create interesting art — and to help artists and creative teams realise
+          ideas that would otherwise be difficult to make.
         </p>
+        <a class="text-link" href="#contact">Work with Toucan <span>↗</span></a>
       </div>
     </section>
 
     <section id="contact" class="contact section">
-      <h2>Have<br><span>an idea?</span></h2>
-      <p>
-        Developing a sculpture, installation, exhibition, display or other
-        creative project involving electronics? I'd love to hear about it.
-      </p>
-      <a class="email-link" href="mailto:info@toucancreative.tech">
-        info@toucancreative.tech <span>↗</span>
-      </a>
+      <div>
+        <h2>Have an idea?</h2>
+        <p class="lead">
+          If you're developing an interactive sculpture, installation, exhibition or other physical
+          experience, I'd love to hear what you're trying to make possible.
+        </p>
+      </div>
+
+      <form class="contact-form" action="mailto:info@toucancreative.tech" method="post" enctype="text/plain">
+        <label>Name<input type="text" name="name" required></label>
+        <label>Email<input type="email" name="email" required></label>
+        <label>Project / organisation<input type="text" name="organisation"></label>
+        <label>Tell me about the project<textarea name="message" rows="6" required></textarea></label>
+        <button class="button button-light" type="submit">Start the conversation ↗</button>
+      </form>
+
+      <div class="contact-direct">
+        <span>Murali Wood</span>
+        <a href="mailto:info@toucancreative.tech">info@toucancreative.tech</a>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="footer-brand">
-      <span class="logo-mark">T</span>
-      <span>Toucan Creative Technology</span>
+    <div>
+      <div class="footer-brand">TOUCAN</div>
+      <p>Creative technical collaboration for interactive art and physical experiences.</p>
     </div>
-    <div>© <span id="year"></span> Murali Wood</div>
-    <a href="#top">Back to top ↑</a>
+    <div class="footer-links">
+      <a href="#work">Work</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#approach">Approach</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p class="copyright">© <span id="year"></span> Toucan Creative Technology</p>
   </footer>
 
   <script src="script.js"></script>
