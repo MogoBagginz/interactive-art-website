@@ -22,7 +22,7 @@ img { max-width: 100%; display: block; }
 button, input, textarea { font: inherit; }
 
 .logo {
-  height: 50px;
+  height: 100px;
   width: auto;
   display: block;
 }
