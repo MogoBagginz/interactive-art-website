@@ -175,7 +175,10 @@ em { font-style: normal; color: var(--accent-on-light); }
 .hero > * { margin: 0; max-width: none; }
 .hero h1 { font-size: clamp(3rem, 5.4vw, 5.4rem); line-height: 1; letter-spacing: -.04em; }
 /* "TOUCAN CREATIVE TECHNOLOGY" heading on the home page */
-.hero h1.brand-title { font-size: clamp(2.6rem, 4.6vw, 4.6rem); text-transform: uppercase; letter-spacing: -.01em; line-height: 1.02; }
+.hero h1.brand-title { font-size: clamp(2.4rem, 3.7vw, 3.7rem); text-transform: uppercase; letter-spacing: -.01em; line-height: 1.02; }
+/* Home page: bigger photo beside the heading */
+[data-page="home"] .hero { grid-template-columns: .8fr 1.2fr; gap: 5vw; }
+[data-page="home"] .hero .frame { max-height: 78vh; }
 .hero-intro { max-width: 580px; margin-top: 28px; font-size: 1.15rem; color: var(--muted); }
 
 
@@ -380,7 +383,7 @@ em { font-style: normal; color: var(--accent-on-light); }
     padding: 28px 6vw; background: var(--paper); border-bottom: 1px solid var(--line);
   }
   .nav.open { display: flex; }
-  .hero, .about, .section-heading, .featured-intro { grid-template-columns: 1fr; gap: 30px; }
+  .hero, .about, .section-heading, .featured-intro, [data-page="home"] .hero { grid-template-columns: 1fr; gap: 30px; }
   .hero { min-height: auto; padding-top: 40px; }
   .hero .frame { order: -1; }
   .capability-grid, .audience-grid, .idea-grid { grid-template-columns: 1fr 1fr; }

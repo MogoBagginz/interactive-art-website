@@ -137,8 +137,8 @@ function makeFrame(photo, extraClass = "") {
 }
 
 /* Makes a video frame for a slide.
-   Every video plays by itself on a loop while it's on screen.
-   Videos are silent, except withSound: true -> plays with sound and shows the controls. */
+   Every video plays by itself, muted, on a loop while it's on screen.
+   withSound: true -> also shows the video controls, so visitors can turn the sound on. */
 const prefersLessMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function makeVideoFrame(s) {
@@ -158,7 +158,7 @@ function makeVideoFrame(s) {
     video.controls = true;         // visitor has asked for less motion: let them press play
   } else {
     video.dataset.autoplay = "";
-    if (s.withSound) { video.controls = true; video.dataset.sound = ""; }
+    if (s.withSound) video.controls = true;
     else video.disablePictureInPicture = true;
   }
   video.src = s.video;
@@ -167,52 +167,17 @@ function makeVideoFrame(s) {
   return fig;
 }
 
-// Plays videos only while they're on screen, pauses them otherwise.
-// Browsers won't play sound until the visitor has clicked or tapped something on
-// the page. Until then a "withSound" video plays muted, and its sound comes on at
-// the visitor's first click or tap (clicking the slider arrows counts).
+// Plays videos only while they're on screen, pauses them otherwise
 function autoplayWhenVisible() {
   const videos = document.querySelectorAll("video[data-autoplay]");
   if (!videos.length || !("IntersectionObserver" in window)) return;
-
-  const playWithSound = video => {
-    if (video.dataset.userMuted) return video.play().catch(() => {});
-    video.muted = false;
-    video.play().catch(() => {           // not allowed yet: play muted for now
-      video.mutedByScript = true;
-      video.muted = true;
-      video.play().catch(() => {});
-    });
-  };
-
-  const visible = new Set();
   const watcher = new IntersectionObserver(entries => {
     entries.forEach(({ target, isIntersecting }) => {
-      if (isIntersecting) {
-        visible.add(target);
-        if (target.hasAttribute("data-sound")) playWithSound(target);
-        else target.play().catch(() => {});
-      } else {
-        visible.delete(target);
-        target.pause();
-      }
+      if (isIntersecting) target.play().catch(() => {});
+      else target.pause();
     });
   }, { threshold: 0.6 });
   videos.forEach(v => watcher.observe(v));
-
-  // First click/tap/key anywhere: turn on the sound of a visible "withSound" video
-  const unmuteVisible = () => visible.forEach(v => {
-    if (v.hasAttribute("data-sound") && v.muted && !v.dataset.userMuted) v.muted = false;
-  });
-  ["pointerdown", "keydown", "touchend"].forEach(type =>
-    document.addEventListener(type, () => setTimeout(unmuteVisible), { capture: true }));
-
-  // If the visitor mutes it themselves, respect that
-  document.querySelectorAll("video[data-sound]").forEach(v =>
-    v.addEventListener("volumechange", () => {
-      if (v.mutedByScript) { v.mutedByScript = false; return; }
-      if (v.muted) v.dataset.userMuted = "yes";
-    }));
 }
 
 // Fills every <figure data-photo="name"> on the page from PHOTOS

@@ -31,7 +31,7 @@ const PHOTOS = {
 
   // Home page
   home_top:   { file: "images/home-top.jpg",  alt: "Interactive sculpture by Toucan Creative Technology" },
-  about:      { file: "images/headline.jpeg", alt: "Murali Wood, founder of Toucan Creative Technology", focus: "top", blackAndWhite: true },
+  about:      { file: "images/about-murali.jpg", alt: "Murali Wood, founder of Toucan Creative Technology", focus: "30% 40%" },
 
   // Landing pages (one photo at the top of each)
   artists:           { file: "images/pages/artists.jpg",           alt: "Artist and engineer working on a sculpture" },
@@ -58,13 +58,17 @@ const PHOTOS = {
    A slide with a short LOOPING VIDEO (silent, plays by itself, like a gif):
      { video: "videos/featured/my-clip.mp4", poster: "images/featured/my-clip-poster.jpg", step: "Testing", caption: "A few words." },
 
-   A slide with a NORMAL VIDEO (play button, with sound) — add  withSound: true
+   A video that has sound worth hearing — add  withSound: true
+   (it still starts muted, but shows controls so visitors can turn the sound on)
      { video: "videos/featured/finished.mp4", poster: "...", withSound: true, step: "Finished", caption: "..." },
 
    "poster" is the still picture shown until the video starts (optional).
    Video files: MP4, 1280px wide, short. See HOW-TO-EDIT.md for how to shrink them.
    --------------------------------------------------------------------- */
 const FEATURED_SLIDES = [
+
+  { video: "videos/featured/finished.mp4", poster: "images/featured/finished-poster.jpg", withSound: true, step: "Finished",
+    caption: "Finished electronics, ready to hand over to the artist. Check back soon for updates." },
 
   { photo: "images/featured/concept.jpg", step: "Concept",
     caption: "The artist's renders. A sculpture that responds to a visitor's heartbeat, read through a sensor." },
@@ -83,9 +87,6 @@ const FEATURED_SLIDES = [
 
   { video: "videos/featured/assembly.mp4", poster: "images/featured/assembly-poster.jpg", step: "Assembly",
     caption: "Electronics meet lampshades. The sculpture takes shape." },
-
-  { video: "videos/featured/finished.mp4", poster: "images/featured/finished-poster.jpg", withSound: true, step: "Finished",
-    caption: "Finished electronics, ready to hand over to the artist. Check back soon for updates." },
 
 ];
 
