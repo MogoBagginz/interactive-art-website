@@ -21,11 +21,9 @@
   TOOL PAGE: Free interactive sculpture design tool
   • The menu and footer link here through TOOLS at the top of script.js.
   ===========================================================
-  • Words: edit them right here in this file.
-  • The questions themselves: edit the top of concept-tool.js.
-  • The tool isn't connected to a server yet, so nothing is sent.
-    Until it is, the last step tells visitors the tool isn't live yet.
-    Don't publish this page until the server is ready.
+  • Words and the 8 questions: edit them right here in this file.
+  • After the last question, visitors go to concept-result.html,
+    which asks the server for their concept and shows it.
 -->
 
 <body class="landing">
@@ -50,7 +48,7 @@
              The words appear twice in each line (value="..." and between <span>...</span>):
              change both.
            • Each question is one <fieldset class="tool-step"> ... </fieldset> block.
-           concept-tool.js shows them one by one and sends the answers. -->
+           concept-tool.js shows them one by one, then opens the answers page. -->
       <div class="tool-card">
         <div class="tool-progress" aria-hidden="true"><span></span></div>
 
@@ -137,33 +135,6 @@
             </div>
           </fieldset>
 
-          <!-- LAST STEP: their details -->
-          <fieldset class="tool-step" data-type="details">
-            <legend class="tool-question">Where should we send your concept?</legend>
-            <p class="tool-hint">Only your email is needed. We'll send a short code to confirm it.</p>
-            <div class="tool-fields">
-              <label class="tool-field"><span>Your name</span><input type="text" name="name" autocomplete="name"></label>
-              <label class="tool-field"><span>Company</span><input type="text" name="company" autocomplete="organization"></label>
-              <label class="tool-field"><span>Work email (required)</span><input type="email" name="email" autocomplete="email" inputmode="email"></label>
-              <label class="tool-field"><span>Your role</span><input type="text" name="role" autocomplete="organization-title" placeholder="e.g. Head of Marketing"></label>
-            </div>
-            <p class="tool-consent">Your answers are used only to make your concept and to contact you about it. They're never shared or sold.</p>
-          </fieldset>
-
-          <!-- After sending: the code from their email -->
-          <fieldset class="tool-step" data-type="code">
-            <legend class="tool-question">Check your inbox.</legend>
-            <p class="tool-hint">We sent a 6-digit code to <strong data-show-email></strong>. Enter it to create your concept.</p>
-            <label class="tool-field tool-code"><span>Code</span>
-              <input type="text" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6"></label>
-          </fieldset>
-
-          <!-- Finished -->
-          <div class="tool-step" data-type="done">
-            <h2 class="tool-question">Your concept is on its way.</h2>
-            <p class="tool-hint">It takes a few minutes. Your concept, technical outline and images will arrive at <strong data-show-email></strong>.</p>
-          </div>
-
           <p class="tool-error" role="alert"></p>
           <div class="tool-nav">
             <button type="button" class="tool-back text-link">← Back</button>
@@ -182,8 +153,8 @@
       </div>
       <div class="steps steps-3">
         <div><h3>Answer 8 questions</h3><p>What your product does, what's hard to see about it, where the piece will stand and how big it should be.</p></div>
-        <div><h3>Confirm your email</h3><p>I send you a short code. One free concept per person keeps the tool free for everyone.</p></div>
-        <div><h3>Get your concept</h3><p>The concept, technical outline and images arrive in your inbox.</p></div>
+        <div><h3>Get your concept</h3><p>In under a minute: a written concept and a technical design outline, right on the page.</p></div>
+        <div><h3>See it in your space</h3><p>Want to see it? Leave your email to get mock-up images of your sculpture.</p></div>
       </div>
     </section>
 
@@ -204,8 +175,8 @@
           <p>The technical outline only uses parts I work with, so it's a realistic starting point. The images are concept sketches, not a final design.</p>
         </details>
         <details>
-          <summary>Why do you need my email?</summary>
-          <p>Your concept is sent there, and the code stops the tool being misused so it can stay free.</p>
+          <summary>Do I need to give my email?</summary>
+          <p>Not for the concept: it appears on the page straight away. Your email is only needed if you'd like mock-up images of your sculpture, which are sent to you.</p>
         </details>
         <details>
           <summary>What happens to my answers?</summary>

@@ -119,7 +119,12 @@ If something breaks, undo your last change.
 
 - The words on the page and the 8 questions: edit `concept.html`.
 - The menu and footer link: `TOOLS` at the top of `script.js`. Change the wording there, or add a line for a new tool page.
-- The tool doesn't send answers anywhere yet. When its server is ready, put the address in `CONCEPT_SERVER` at the top of `concept-tool.js`.
+- After the last question, visitors go to `concept-result.html`, the answers page. Its words are in that file; its messages (daily limit, "tell me more", errors) are in `MESSAGES` at the top of `concept-result.js`.
+- The server that writes the concepts is in the `concept-worker` folder (see its README).
+
+**Trying the tool on your computer:** double-clicking won't work for the tool. In a terminal, in the website folder, run
+`python3 -m http.server 8000`, then open http://localhost:8000/concept.html. The server must be in test mode
+(`ALLOW_LOCAL_TEST` = `yes` in Cloudflare). Stop it with Ctrl+C.
 
 ---
 

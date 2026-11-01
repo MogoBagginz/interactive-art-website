@@ -414,7 +414,7 @@ em { font-style: normal; color: var(--accent-on-light); }
 
 
 /* =====================================================================
-   18. CONCEPT TOOL PAGE (concept.html — the questions are built by concept-tool.js)
+   18. CONCEPT TOOL PAGE (concept.html — the questions; concept-tool.js shows them one by one)
    ===================================================================== */
 /* Title and short intro on the left, the questions on the right */
 .tool { display: grid; grid-template-columns: .9fr 1.1fr; gap: 6vw; align-items: start; padding-top: 80px; padding-bottom: 100px;
@@ -458,14 +458,6 @@ em { font-style: normal; color: var(--accent-on-light); }
 
 .tool-check { display: flex; gap: 10px; align-items: flex-start; margin-top: 16px; cursor: pointer; color: var(--muted); font-size: .95rem; }
 .tool-check input { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--ink); flex: none; }
-.tool-consent { margin: 22px 0 0; font-size: .88rem; line-height: 1.5; color: var(--muted); }
-
-/* Your details */
-.tool-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
-.tool-field { display: block; margin-top: 18px; }
-.tool-field span { font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-.tool-field input { margin-top: 6px !important; }
-.tool-code input { max-width: 200px; font-size: 1.4rem !important; letter-spacing: .3em; }
 
 /* Error message and Back / Next */
 .tool-error { margin: 18px 0 0; min-height: 1.4em; color: #a3261e; font-weight: 600; font-size: .95rem; }
@@ -485,5 +477,74 @@ em { font-style: normal; color: var(--accent-on-light); }
 @media (max-width: 600px) {
   .tool h1 { font-size: 2.5rem; }
   .tool-form { padding: 26px 20px 28px; }
-  .tool-choices, .tool-fields { grid-template-columns: 1fr; }
+  .tool-choices { grid-template-columns: 1fr; }
 }
+
+
+/* =====================================================================
+   19. CONCEPT ANSWERS PAGE (concept-result.html)
+   ===================================================================== */
+.result { padding-top: 80px; padding-bottom: 90px; }
+.result h1 { font-size: clamp(2.6rem, 5vw, 4.8rem); line-height: 1; letter-spacing: -.04em; max-width: 960px; }
+
+/* Waiting: three steps that tick off one by one */
+.progress-steps { list-style: none; padding: 0; margin: 40px 0 0; display: grid; gap: 16px; max-width: 520px; }
+.progress-steps li { display: flex; align-items: center; gap: 14px; font-weight: 600; font-size: 1.1rem; color: var(--muted); opacity: .55; transition: opacity .3s; }
+.progress-steps li::before {
+  content: ""; flex: none; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--line); display: grid; place-items: center;
+  font-size: .8rem; line-height: 1; color: var(--paper);
+}
+.progress-steps li.is-active { opacity: 1; color: var(--ink); }
+.progress-steps li.is-active::before { border-color: var(--accent); animation: tool-pulse 1.4s ease-in-out infinite; }
+.progress-steps li.is-done { opacity: 1; color: var(--ink); }
+.progress-steps li.is-done::before { content: "✓"; background: var(--ink); border-color: var(--ink); }
+@keyframes tool-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(203, 140, 52, .45); } 50% { box-shadow: 0 0 0 7px rgba(203, 140, 52, 0); } }
+.turnstile-box { margin-top: 28px; }   /* the bot check is invisible on the live site */
+
+/* The concept */
+.result-idea { font-size: clamp(1.2rem, 2vw, 1.55rem); line-height: 1.45; max-width: 780px; margin: 22px 0 56px; }
+.result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5vw; align-items: start; }
+.result-heading { font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-on-light); line-height: 1.4; }
+.result-concept .result-heading { margin-bottom: 14px; }
+.result-rows { margin: 0; }
+.result-rows > div { padding: 20px 0; border-top: 1px solid var(--line); }
+.result-rows dt { font-weight: 700; font-size: 1.05rem; }
+.result-rows dd { margin: 6px 0 0; color: var(--muted); }
+
+/* The technical design outline, laid out like a spec sheet */
+.spec { background: var(--paper-dark); border: 1px solid var(--line); }
+.spec-head { padding: 24px 28px 18px; border-bottom: 2px solid var(--ink); }
+.spec-rows { margin: 0; }
+.spec-rows > div { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 16px 28px; border-top: 1px solid var(--line); }
+.spec-rows > div:first-child { border-top: 0; }
+.spec-rows dt { font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding-top: 3px; }
+.spec-rows dd { margin: 0; color: var(--muted); font-size: .98rem; }
+
+.result-closing { margin: 36px 0 0; font-style: italic; color: var(--muted); font-size: .95rem; }
+
+/* Mock-up images form (dark band) */
+.images-form { display: grid; grid-template-columns: minmax(0, 480px) auto; justify-content: start; align-items: end; gap: 14px 16px; }
+.images-field span { display: block; margin-bottom: 8px; font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #c8c2b8; }
+.images-field input { width: 100%; padding: 15px 16px; font: inherit; font-size: 1.05rem; color: var(--paper); background: #1d1d1d; border: 1px solid #4a4a4a; border-radius: 0; }
+.images-field input:focus { outline: 2px solid var(--accent); outline-offset: 0; }
+.images-form .button { padding-top: 18px; padding-bottom: 18px; }
+.images-error { grid-column: 1 / -1; margin: 0; min-height: 1.4em; color: #f2a39b; font-weight: 600; font-size: .95rem; }
+.images-note { grid-column: 1 / -1; margin: 0; color: #b9b2a8; font-size: .88rem; max-width: 620px; }
+
+@media (max-width: 900px) {
+  .result { padding-top: 40px; }
+  .result-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 600px) {
+  .result h1 { font-size: 2.5rem; }
+  .spec-head { padding: 20px 20px 16px; }
+  .spec-rows > div { grid-template-columns: 1fr; gap: 4px; padding: 14px 20px; }
+  .images-form { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .progress-steps li.is-active::before { animation: none; border-color: var(--accent); }
+}
+
+/* the mock-up images band and "How it works" are both dark: keep them apart */
+.images + .dark { border-top: 1px solid #2c2c2c; }
