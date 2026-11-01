@@ -85,7 +85,7 @@ const FEATURED_SLIDES = [
     caption: "Electronics meet lampshades. The sculpture takes shape." },
 
   { video: "videos/featured/finished.mp4", poster: "images/featured/finished-poster.jpg", withSound: true, step: "Finished",
-    caption: "Fully working, and ready for display." },
+    caption: "Finished electronics, ready to hand over to the artist. Check back soon for updates." },
 
 ];
 

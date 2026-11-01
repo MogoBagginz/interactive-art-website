@@ -129,8 +129,8 @@ function makeFrame(photo, extraClass = "") {
 }
 
 /* Makes a video frame for a slide.
-   Without sound: silent, loops, plays by itself while on screen (like a gif).
-   withSound: true -> a normal video with a play button. */
+   Every video plays by itself on a loop while it's on screen.
+   Videos are silent, except withSound: true -> plays with sound and shows the controls. */
 const prefersLessMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function makeVideoFrame(s) {
@@ -141,17 +141,17 @@ function makeVideoFrame(s) {
   const video = document.createElement("video");
   video.preload = "none";          // nothing downloads until it's needed
   video.playsInline = true;
+  video.muted = true;              // browsers only allow videos to start by themselves when muted
+  video.setAttribute("muted", "");
+  video.loop = true;
   if (s.poster) video.poster = s.poster;
 
-  if (s.withSound || prefersLessMotion) {
-    video.controls = true;
-    video.preload = "metadata";
+  if (prefersLessMotion) {
+    video.controls = true;         // visitor has asked for less motion: let them press play
   } else {
-    video.muted = true;
-    video.setAttribute("muted", "");
-    video.loop = true;
-    video.disablePictureInPicture = true;
     video.dataset.autoplay = "";
+    if (s.withSound) { video.controls = true; video.dataset.sound = ""; }
+    else video.disablePictureInPicture = true;
   }
   video.src = s.video;
   video.addEventListener("error", () => fig.classList.add("is-empty"));
@@ -159,17 +159,52 @@ function makeVideoFrame(s) {
   return fig;
 }
 
-// Plays looping videos only while they're on screen, pauses them otherwise
+// Plays videos only while they're on screen, pauses them otherwise.
+// Browsers won't play sound until the visitor has clicked or tapped something on
+// the page. Until then a "withSound" video plays muted, and its sound comes on at
+// the visitor's first click or tap (clicking the slider arrows counts).
 function autoplayWhenVisible() {
   const videos = document.querySelectorAll("video[data-autoplay]");
   if (!videos.length || !("IntersectionObserver" in window)) return;
+
+  const playWithSound = video => {
+    if (video.dataset.userMuted) return video.play().catch(() => {});
+    video.muted = false;
+    video.play().catch(() => {           // not allowed yet: play muted for now
+      video.mutedByScript = true;
+      video.muted = true;
+      video.play().catch(() => {});
+    });
+  };
+
+  const visible = new Set();
   const watcher = new IntersectionObserver(entries => {
     entries.forEach(({ target, isIntersecting }) => {
-      if (isIntersecting) target.play().catch(() => {});
-      else target.pause();
+      if (isIntersecting) {
+        visible.add(target);
+        if (target.hasAttribute("data-sound")) playWithSound(target);
+        else target.play().catch(() => {});
+      } else {
+        visible.delete(target);
+        target.pause();
+      }
     });
   }, { threshold: 0.6 });
   videos.forEach(v => watcher.observe(v));
+
+  // First click/tap/key anywhere: turn on the sound of a visible "withSound" video
+  const unmuteVisible = () => visible.forEach(v => {
+    if (v.hasAttribute("data-sound") && v.muted && !v.dataset.userMuted) v.muted = false;
+  });
+  ["pointerdown", "keydown", "touchend"].forEach(type =>
+    document.addEventListener(type, () => setTimeout(unmuteVisible), { capture: true }));
+
+  // If the visitor mutes it themselves, respect that
+  document.querySelectorAll("video[data-sound]").forEach(v =>
+    v.addEventListener("volumechange", () => {
+      if (v.mutedByScript) { v.mutedByScript = false; return; }
+      if (v.muted) v.dataset.userMuted = "yes";
+    }));
 }
 
 // Fills every <figure data-photo="name"> on the page from PHOTOS
@@ -210,34 +245,34 @@ function buildSlider() {
     track.appendChild(li);
   });
 
-  const controls = document.createElement("div");
-  controls.className = "slider-controls";
-  controls.innerHTML = `
-    <button class="slider-button" data-dir="-1" aria-label="Previous">←</button>
-    <span class="slider-count" aria-live="polite"></span>
-    <button class="slider-button" data-dir="1" aria-label="Next">→</button>
-    <div class="slider-progress"><span></span></div>`;
-
+  // Arrows and counter sit on top of the picture
+  const arrow = (dir, label, path) => `
+    <button class="slider-arrow ${dir}" aria-label="${label}">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="${path}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>`;
   spot.classList.add("slider");
-  spot.append(track, controls);
+  spot.append(track);
+  spot.insertAdjacentHTML("beforeend",
+    arrow("prev", "Previous", "M15 5l-7 7 7 7") +
+    arrow("next", "Next", "M9 5l7 7-7 7") +
+    `<span class="slider-count" aria-live="polite"></span>`);
 
   const items = [...track.children];
-  const count = controls.querySelector(".slider-count");
-  const bar = controls.querySelector(".slider-progress span");
-  const [prev, next] = controls.querySelectorAll(".slider-button");
+  const count = spot.querySelector(".slider-count");
+  const prev = spot.querySelector(".slider-arrow.prev");
+  const next = spot.querySelector(".slider-arrow.next");
   let current = 0;
 
   const update = () => {
+    // keep the arrows centred on the picture, whatever the screen size
+    spot.style.setProperty("--frame-h", items[0].querySelector(".frame").offsetHeight + "px");
     // which slide is nearest the left edge?
     let best = 0;
     items.forEach((item, i) => {
       if (Math.abs(item.offsetLeft - track.scrollLeft) < Math.abs(items[best].offsetLeft - track.scrollLeft)) best = i;
     });
-    // at the very end, count the last slide as current
-    if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) best = items.length - 1;
     current = best;
     count.textContent = `${current + 1} / ${items.length}`;
-    bar.style.width = `${((current + 1) / items.length) * 100}%`;
     prev.disabled = current === 0;
     next.disabled = current === items.length - 1;
   };
@@ -246,10 +281,8 @@ function buildSlider() {
     track.scrollTo({ left: items[i].offsetLeft });
   };
 
-  controls.addEventListener("click", e => {
-    const btn = e.target.closest(".slider-button");
-    if (btn) goTo(current + Number(btn.dataset.dir));
-  });
+  prev.addEventListener("click", () => goTo(current - 1));
+  next.addEventListener("click", () => goTo(current + 1));
   track.addEventListener("keydown", e => {
     if (e.key === "ArrowRight") { e.preventDefault(); goTo(current + 1); }
     if (e.key === "ArrowLeft")  { e.preventDefault(); goTo(current - 1); }

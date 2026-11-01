@@ -195,10 +195,13 @@ em { font-style: normal; color: var(--accent-on-light); }
 .featured-meta { margin-top: 14px; font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .featured-intro > p { color: var(--muted); margin: 0; }
 
-.slider { position: relative; }
-.slider-track {
+.slider {
   position: relative;
-  display: flex; gap: 20px;
+  --slide-w: 95%;                    /* how wide each slide is — the rest is a peek of the next one */
+  --gap: 12px;
+}
+.slider-track {
+  display: flex; gap: var(--gap);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -207,23 +210,38 @@ em { font-style: normal; color: var(--accent-on-light); }
 }
 .slider-track::-webkit-scrollbar { display: none; } /* hide scrollbar (Chrome/Safari) */
 .slider-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
-.slide { flex: 0 0 74%; scroll-snap-align: start; }
+/* empty space after the last slide, so it can line up on the left like the others */
+.slider-track::after { content: ""; flex: 0 0 calc(100% - var(--slide-w) - var(--gap)); }
+.slide { flex: 0 0 var(--slide-w); scroll-snap-align: start; }
 .slide .frame { aspect-ratio: 16 / 9; }   /* same shape as the videos */
 .slide-text { display: grid; grid-template-columns: 170px 1fr; gap: 20px; padding-top: 18px; }
 .slide-step { font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-on-light); }
 .slide-text p { margin: 0; color: var(--muted); max-width: 640px; }
 
-.slider-controls { display: flex; align-items: center; gap: 18px; margin-top: 28px; }
-.slider-button {
-  width: 52px; height: 52px; border-radius: 50%;
-  border: 1px solid var(--ink); background: transparent; cursor: pointer;
-  font-size: 1.3rem; line-height: 1;
+/* Round arrow buttons on top of the picture */
+.slider-arrow {
+  position: absolute; z-index: 2;
+  top: calc(var(--frame-h, 300px) / 2); transform: translateY(-50%);
+  width: 48px; height: 48px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+  display: grid; place-items: center;
+  background: rgba(238, 225, 215, .85); color: var(--ink);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .25);
+  backdrop-filter: blur(6px);
+  transition: opacity .2s, background .2s;
 }
-.slider-button:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
-.slider-button:disabled { opacity: .3; cursor: default; }
-.slider-count { font-size: .85rem; font-weight: 700; letter-spacing: .1em; min-width: 64px; text-align: center; }
-.slider-progress { flex: 1; height: 2px; background: var(--line); position: relative; }
-.slider-progress span { position: absolute; left: 0; top: 0; bottom: 0; background: var(--ink); transition: width .3s; }
+.slider-arrow:hover { background: var(--paper); }
+.slider-arrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.slider-arrow.prev { left: 16px; }
+.slider-arrow.next { right: calc(100% - var(--slide-w) + 16px); }
+.slider-arrow:disabled { opacity: 0; pointer-events: none; }
+
+/* "2 / 6" in the top corner of the picture */
+.slider-count {
+  position: absolute; z-index: 2; top: 14px; right: calc(100% - var(--slide-w) + 14px);
+  padding: 4px 10px; border-radius: 20px;
+  background: rgba(17, 17, 17, .6); color: #fff;
+  font-size: .75rem; font-weight: 700; letter-spacing: .08em;
+}
 
 
 /* =====================================================================
@@ -360,7 +378,6 @@ em { font-style: normal; color: var(--accent-on-light); }
   .hero .frame { order: -1; }
   .capability-grid, .audience-grid, .idea-grid { grid-template-columns: 1fr 1fr; }
   .steps { grid-template-columns: 1fr 1fr; gap: 36px 30px; }
-  .slide { flex-basis: 90%; }
   .slide-text { grid-template-columns: 1fr; gap: 6px; }
   .footer { grid-template-columns: 1fr; padding-left: 6vw; padding-right: 6vw; }
 }
@@ -370,8 +387,10 @@ em { font-style: normal; color: var(--accent-on-light); }
   .hero h1 { font-size: 2.9rem; }
   .capability-grid, .audience-grid, .idea-grid, .video-grid, .steps { grid-template-columns: 1fr; }
   .audience-card { min-height: 0; }
-  .slide { flex-basis: 100%; }
-  .slider-button { width: 46px; height: 46px; }
+  .slider { --slide-w: 93%; --gap: 8px; }
+  .slider-arrow { width: 40px; height: 40px; }
+  .slider-arrow.prev { left: 10px; }
+  .slider-arrow.next { right: calc(100% - var(--slide-w) + 10px); }
 }
 
 /* Respect people who turn off animations */
