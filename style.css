@@ -401,3 +401,79 @@ em { font-style: normal; color: var(--accent-on-light); }
 /* Landing pages use a slightly smaller main heading (they have longer titles) */
 .landing .hero h1 { font-size: clamp(2.6rem, 5.2vw, 5.2rem); }
 @media (max-width: 600px) { .landing .hero h1 { font-size: 2.5rem; } }
+
+
+/* =====================================================================
+   18. CONCEPT TOOL PAGE (concept.html — the questions are built by concept-tool.js)
+   ===================================================================== */
+/* Title and short intro on the left, the questions on the right */
+.tool { display: grid; grid-template-columns: .9fr 1.1fr; gap: 6vw; align-items: start; padding-top: 80px; padding-bottom: 100px;
+        padding-left: max(5vw, calc((100% - var(--page-width)) / 2)); padding-right: max(5vw, calc((100% - var(--page-width)) / 2)); }
+.tool > * { margin: 0; max-width: none; }
+.tool-intro { position: sticky; top: calc(var(--header-height) + 40px); }
+.tool h1 { font-size: clamp(2.6rem, 4.6vw, 4.6rem); line-height: 1; letter-spacing: -.04em; }
+
+/* The white-ish card holding the questions */
+.tool-card { background: var(--paper-dark); border: 1px solid var(--line); min-height: 420px; }
+.tool-progress { height: 4px; background: var(--line); }
+.tool-progress span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+.tool-form { padding: 36px 40px 40px; display: flex; flex-direction: column; min-height: 416px; }
+.tool-count { margin: 0 0 18px; font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-on-light); min-height: 1.3em; }
+.tool-question { font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.15; font-weight: 600; letter-spacing: -.02em; }
+.tool-hint { margin: 10px 0 0; color: var(--muted); }
+.tool-step { border: 0; margin: 0; padding: 0; min-width: 0; flex: 1; }
+.tool-step legend { padding: 0; }
+/* Without JavaScript the steps can't be shown one by one, so the page asks visitors to email instead */
+.tool-form:not(.is-live) > :not(noscript) { display: none; }
+
+/* Written answers */
+.tool textarea, .tool input[type=text], .tool input[type=email], .tool input[type=date] {
+  width: 100%; margin-top: 24px; padding: 14px 16px;
+  font: inherit; font-size: 1.05rem; color: var(--ink);
+  background: var(--paper); border: 1px solid var(--line); border-radius: 0;
+}
+.tool textarea { resize: vertical; min-height: 110px; }
+.tool textarea:focus, .tool input:focus { outline: 2px solid var(--ink); outline-offset: 0; }
+.tool input[type=date] { max-width: 260px; }
+.tool input:disabled { opacity: .45; }
+
+/* Pick-one / pick-several answers */
+.tool-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px; }
+.tool-choice { position: relative; cursor: pointer; }
+.tool-choice input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.tool-choice span { display: flex; align-items: center; min-height: 58px; padding: 12px 16px; background: var(--paper); border: 1px solid var(--line); font-weight: 600; font-size: .98rem; line-height: 1.3; transition: background .15s, color .15s; }
+.tool-choice:hover span { border-color: var(--ink); }
+.tool-choice input:checked + span { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tool-choice input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.tool-check { display: flex; gap: 10px; align-items: flex-start; margin-top: 16px; cursor: pointer; color: var(--muted); font-size: .95rem; }
+.tool-check input { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--ink); flex: none; }
+.tool-consent { margin-top: 22px; font-size: .88rem; line-height: 1.5; }
+
+/* Your details */
+.tool-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+.tool-field { display: block; margin-top: 18px; }
+.tool-field span { font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.tool-field input { margin-top: 6px !important; }
+.tool-code input { max-width: 200px; font-size: 1.4rem !important; letter-spacing: .3em; }
+
+/* Error message and Back / Next */
+.tool-error { margin: 18px 0 0; min-height: 1.4em; color: #a3261e; font-weight: 600; font-size: .95rem; }
+.tool-nav { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-top: 10px; }
+.tool-back { background: none; border: 0; border-bottom: 2px solid currentColor; cursor: pointer; padding: 0 0 3px; }
+.tool-next { margin-left: auto; }
+.tool-next:disabled { opacity: .6; cursor: wait; }
+
+/* "How it works" on this page has 3 steps instead of 4 */
+.steps.steps-3 { grid-template-columns: repeat(3, 1fr); }
+
+@media (max-width: 900px) {
+  .tool { grid-template-columns: 1fr; gap: 36px; padding-top: 40px; padding-left: 6vw; padding-right: 6vw; }
+  .tool-intro { position: static; }
+  .steps.steps-3 { grid-template-columns: 1fr; gap: 36px; }
+}
+@media (max-width: 600px) {
+  .tool h1 { font-size: 2.5rem; }
+  .tool-form { padding: 26px 20px 28px; }
+  .tool-choices, .tool-fields { grid-template-columns: 1fr; }
+}
