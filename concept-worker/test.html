@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design tool server — test page</title>
+  <!--
+    TEST PAGE for the design tool server. Not part of the website.
+    Open it from your computer as described in README.md (step 4),
+    NOT by double-clicking the file.
+    It uses Cloudflare's official Turnstile test key, which always passes.
+  -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <style>
+    body { font: 16px/1.5 system-ui, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 16px; color: #111; background: #EEE1D7; }
+    h1 { font-size: 1.6rem; } h2 { font-size: 1.2rem; margin-top: 2em; }
+    label { display: block; font-weight: 600; margin-top: 16px; }
+    input, textarea { width: 100%; font: 14px ui-monospace, monospace; padding: 8px; box-sizing: border-box; }
+    textarea { min-height: 220px; }
+    button { margin-top: 16px; padding: 12px 20px; font-weight: 700; background: #111; color: #EEE1D7; border: 0; cursor: pointer; }
+    button:disabled { opacity: .5; cursor: wait; }
+    .status { margin-top: 16px; font-weight: 600; }
+    .result { background: #fff; padding: 16px 20px; margin-top: 16px; }
+    .result dt { font-weight: 700; margin-top: 10px; } .result dd { margin: 2px 0 0; }
+    pre { white-space: pre-wrap; background: #fff; padding: 12px; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Design tool server — test page</h1>
+  <p>Sends the answers below to the server and shows what comes back. Each successful test uses up one of today's concepts and costs a few cents.</p>
+
+  <label for="server">Server address</label>
+  <input id="server" value="https://concept-tool.mugz-wood.workers.dev">
+
+  <label for="answers">Answers (edit to try other startups)</label>
+  <textarea id="answers">{
+  "place": "Trade-show stand",
+  "product": "We make electrolysers that turn solar power into green hydrogen",
+  "invisible": "Water being split into hydrogen; it all happens inside a steel box",
+  "interaction": ["Touch"],
+  "message": "That clean energy can be stored",
+  "size": "Human height",
+  "date": "2027-04-20",
+  "budget": "€15,000–40,000"
+}</textarea>
+
+  <!-- Cloudflare's test site key: always passes -->
+  <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" style="margin-top:16px"></div>
+
+  <button id="send">Create concept</button>
+  <p class="status" id="status"></p>
+  <div id="out"></div>
+
+  <h2>Raw reply</h2>
+  <pre id="raw">(nothing yet)</pre>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const LABELS = {
+      name: "Name", idea: "The idea", visitors_do: "What visitors do", what_happens: "What happens",
+      says_about_product: "What it says about your product", size_materials_place: "Size, materials and where it stands",
+      senses: "Senses", control_unit: "Control unit", light: "Light", sound: "Sound", connections: "Connections",
+      power_safety: "Power and safety", test_first: "What we'd test first",
+    };
+    const list = obj => `<dl>${Object.entries(obj || {}).filter(([, v]) => v).map(([k, v]) => `<dt>${LABELS[k] || k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>`;
+
+    $("send").addEventListener("click", async () => {
+      let answers;
+      try { answers = JSON.parse($("answers").value); } catch { $("status").textContent = "The answers aren't valid JSON."; return; }
+      $("send").disabled = true; $("out").innerHTML = ""; $("raw").textContent = "…";
+      // Wait (up to 15 s) for the bot check to be ready, e.g. just after the previous run reset it
+      let token = window.turnstile ? turnstile.getResponse() : "";
+      for (let i = 0; !token && i < 60; i++) {
+        $("status").textContent = "Waiting for the bot check…";
+        await new Promise(r => setTimeout(r, 250));
+        token = window.turnstile ? turnstile.getResponse() : "";
+      }
+      if (!token) { $("status").textContent = "The bot check didn't load. Reload the page and try again."; $("send").disabled = false; return; }
+      const started = Date.now();
+      const tick = setInterval(() => $("status").textContent = `Writing and checking… ${Math.round((Date.now() - started) / 1000)} s`, 500);
+      try {
+        const res = await fetch($("server").value.replace(/\/$/, "") + "/concept", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ answers, turnstileToken: token }),
+        });
+        const data = await res.json();
+        $("raw").textContent = JSON.stringify(data, null, 2);
+        const secs = Math.round((Date.now() - started) / 1000);
+        if (data.status === "ok") {
+          $("status").textContent = `Done in ${secs} s (attempts: ${data.checks.attempts}, concepts left today: ${data.remainingToday})`;
+          $("out").innerHTML = `<div class="result"><h2 style="margin-top:0">Written concept</h2>${list(data.concept)}
+            <h2>Technical design outline</h2>${list(data.outline)}<p><em>${esc(data.closing)}</em></p></div>`;
+        } else {
+          $("status").textContent = `${res.status} · ${data.status}: ${data.message || ""} (${secs} s)`;
+        }
+      } catch (e) {
+        $("status").textContent = "Couldn't reach the server: " + e.message;
+        $("raw").textContent = String(e);
+      } finally {
+        clearInterval(tick); $("send").disabled = false;
+        if (window.turnstile) turnstile.reset();
+      }
+    });
+  </script>
+</body>
+</html>
