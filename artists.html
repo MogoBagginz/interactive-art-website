@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electronics & interaction for artists' sculptures — Toucan Creative Technology</title>
+  <meta name="description" content="You make the sculpture; I build the electronics and software that make it move, light up and respond to people.">
+  <meta name="author" content="Murali Wood">
+  <meta name="theme-color" content="#111111">
+  <meta property="og:title" content="Electronics & interaction for artists' sculptures">
+  <meta property="og:description" content="You make the sculpture; I build the electronics and software that make it move, light up and respond to people.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<!--
+  LANDING PAGE: For artists
+  ===========================================================
+  • Words: edit them right here in this file.
+  • Top photo: set "artists" in photos-and-videos.js
+    (or just save a photo as images/pages/artists.jpg)
+  • The "Recent work" slides are the same as the home page's featured project.
+  To make a new landing page: copy this file, rename it, change the words,
+  then add it to LANDING_PAGES at the top of script.js.
+-->
+
+<body class="landing">
+
+  <div data-site-header></div>
+
+  <main>
+
+    <!-- ===================== TOP OF PAGE ===================== -->
+    <section class="hero section">
+      <div>
+        <a class="back-link" href="index.html">← Toucan Creative Technology</a>
+        <span class="label">For artists</span>
+        <h1>Your sculpture, <em>brought to life.</em></h1>
+        <p class="hero-intro">You know what you want the work to do — move, glow, respond to the people around it. I design and build the electronics and software that make it happen, so you can stay focused on the art.</p>
+        <div class="actions">
+          <a class="button" href="#contact">Tell me about your piece</a>
+          <a class="text-link" href="#how">How it works ↓</a>
+        </div>
+        <p class="for-list"><strong>Ideal for:</strong> Sculptors, installation artists, makers and artist studios</p>
+      </div>
+      <figure data-photo="artists" class="portrait" data-eager></figure>
+    </section>
+
+
+    <!-- ===================== IDEAS ===================== -->
+    <section class="section tint">
+      <div class="section-heading">
+        <h2>What your work could do.</h2>
+        <p>No technical language needed. Describe the behaviour you imagine, and I’ll work out how to build it.</p>
+      </div>
+      <div class="idea-grid">
+        <div class="idea"><h3>React to people</h3><p>Sense presence, touch, proximity or movement, and respond in a way that feels natural.</p></div>
+        <div class="idea"><h3>Light that behaves</h3><p>LEDs that breathe, follow, fade or shift — light as part of the material, not an add-on.</p></div>
+        <div class="idea"><h3>Move</h3><p>Motors and actuators for kinetic work, tuned to move smoothly and quietly.</p></div>
+        <div class="idea"><h3>Make sound</h3><p>Sound that’s triggered by visitors, or changes with what’s happening around the piece.</p></div>
+        <div class="idea"><h3>Respond to its surroundings</h3><p>Light levels, sound, temperature, time of day — or live data from elsewhere.</p></div>
+        <div class="idea"><h3>Keep the technology hidden</h3><p>Electronics designed to fit inside your piece, so people see the art, not the wiring.</p></div>
+      </div>
+    </section>
+
+
+    <!-- ===================== HOW IT WORKS ===================== -->
+    <section id="how" class="section dark">
+      <div class="section-heading">
+        <h2>How we’d <em>work together.</em></h2>
+        <p>A clear process, with the risky parts tested first.</p>
+      </div>
+      <div class="steps">
+        <div><h3>Talk</h3><p>Tell me about the piece — what it should do and how it should feel. I’ll ask the technical questions.</p></div>
+        <div><h3>Prototype</h3><p>We test the uncertain parts on the bench first, so you can see and feel the behaviour early.</p></div>
+        <div><h3>Build</h3><p>I build the electronics and software around your materials, form and timeline.</p></div>
+        <div><h3>Install</h3><p>I help install and commission it, and leave clear notes so it keeps working.</p></div>
+      </div>
+    </section>
+
+
+    <!-- ===================== RECENT WORK (slider) ===================== -->
+    <section class="section">
+      <div class="featured-intro">
+        <div>
+          <span class="label">Recent work</span>
+          <h3>Interactive Sculpture</h3>
+          <p class="featured-meta">Embedded electronics · Sensing · Control · Installation</p>
+        </div>
+        <p>
+          Working alongside an established artist, I developed the embedded electronic system
+          behind an interactive sculpture for a medical company. Slide through to see the process.
+        </p>
+      </div>
+      <div data-slider></div>
+    </section>
+
+
+    <!-- ===================== QUESTIONS ===================== -->
+    <section class="section tint">
+      <div class="section-heading">
+        <h2>Questions.</h2>
+        <p>Something else? Just ask — <a class="text-link" href="mailto:info@toucancreative.tech">email me</a>.</p>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>I’m not technical. Is that a problem?</summary>
+          <p>Not at all — that’s the point of working together. You describe the experience; I handle the engineering and explain choices in plain language.</p>
+        </details>
+        <details>
+          <summary>Do I keep creative control?</summary>
+          <p>Yes. You remain the artist. My job is to understand what you’re trying to achieve and find the technology that supports it.</p>
+        </details>
+        <details>
+          <summary>Can you work with my fabricator or studio team?</summary>
+          <p>Yes. I’m used to fitting electronics around other people’s materials, structures and schedules.</p>
+        </details>
+        <details>
+          <summary>How much does it cost?</summary>
+          <p>Every piece is different. After a first conversation I’ll give you a clear estimate, and we can start with a small prototype stage so you’re not committing everything up front.</p>
+        </details>
+      </div>
+    </section>
+
+
+    <!-- ===================== CONTACT ===================== -->
+    <section id="contact" class="contact section dark">
+      <h2>Have a piece <em>in mind?</em></h2>
+      <p>Send me a few lines, a sketch or a photo of the work in progress. I’d love to hear what you’re making.</p>
+      <a class="email-link" href="mailto:info@toucancreative.tech?subject=Project%20enquiry%20%E2%80%94%20artists">info@toucancreative.tech ↗</a>
+    </section>
+
+  </main>
+
+  <div data-site-footer></div>
+
+  <script src="photos-and-videos.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
