@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free sculpture concept for your technology — Toucan Creative Technology</title>
-  <meta name="description" content="Answer 8 quick questions about your product and get a free interactive sculpture concept, a technical outline and concept images for your trade-show stand, lobby or launch.">
+  <title>Free interactive sculpture design tool — Toucan Creative Technology</title>
+  <meta name="description" content="Answer 8 quick questions about your product or business and get a free interactive sculpture concept, a technical outline and concept images for your trade-show stand, lobby or launch.">
   <meta name="author" content="Murali Wood">
   <meta name="theme-color" content="#111111">
-  <meta property="og:title" content="Get a free sculpture concept for your technology">
-  <meta property="og:description" content="Answer 8 quick questions. Get an interactive sculpture concept, a technical outline and concept images.">
+  <meta property="og:title" content="Free interactive sculpture design tool">
+  <meta property="og:description" content="Answer 8 quick questions about your product or business. Get an interactive sculpture concept, a technical outline and concept images.">
   <meta property="og:image" content="images/featured/finished-poster.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,10 +37,8 @@
     <!-- id="contact" so the menu's "Start a project" link jumps here -->
     <section id="contact" class="tool section">
       <div class="tool-intro">
-        <a class="back-link" href="index.html">← Toucan Creative Technology</a>
-        <span class="label">Free concept tool</span>
-        <h1>Get a free sculpture concept <em>for your technology.</em></h1>
-        <p class="hero-intro">Answer 8 quick questions about your product. You'll get an interactive sculpture concept, a technical outline and concept images for your stand, lobby or launch.</p>
+        <h1>Free <em>interactive sculpture</em> design tool.</h1>
+        <p class="hero-intro">Answer 8 quick questions about your product or business. You'll get an interactive sculpture concept, a technical outline and concept images for your stand, lobby or launch.</p>
         <p class="for-list"><strong>About 3 minutes.</strong> No call, no obligation.</p>
       </div>
 
@@ -59,7 +57,17 @@
           <noscript><p class="tool-nojs">The concept tool needs JavaScript. You can also email <a href="mailto:info@toucancreative.tech">info@toucancreative.tech</a>.</p></noscript>
           <p class="tool-count" aria-live="polite"></p>
 
-          <!-- QUESTION 1 -->
+          <!-- QUESTION 1 (pick one) -->
+          <fieldset class="tool-step" data-type="choice">
+            <legend class="tool-question">Where will the piece live?</legend>
+            <div class="tool-choices">
+              <label class="tool-choice"><input type="radio" name="place" value="Trade-show stand"><span>Trade-show stand</span></label>
+              <label class="tool-choice"><input type="radio" name="place" value="Lobby or office"><span>Lobby or office</span></label>
+              <label class="tool-choice"><input type="radio" name="place" value="Launch event"><span>Launch event</span></label>
+            </div>
+          </fieldset>
+
+          <!-- QUESTION 2 -->
           <fieldset class="tool-step" data-type="text">
             <legend class="tool-question">What does your product do?</legend>
             <p class="tool-hint">One sentence is enough.</p>
@@ -67,23 +75,12 @@
               placeholder="e.g. We make electrolysers that turn solar power into hydrogen."></textarea>
           </fieldset>
 
-          <!-- QUESTION 2 -->
+          <!-- QUESTION 3 -->
           <fieldset class="tool-step" data-type="text">
             <legend class="tool-question">What's hard to see or picture about it?</legend>
             <p class="tool-hint">The thing visitors can't see on the stand.</p>
             <textarea name="invisible" rows="3" maxlength="300" aria-label="What's hard to see or picture about it?"
               placeholder="e.g. The energy flow, a chemical reaction, how precise or how fast it is"></textarea>
-          </fieldset>
-
-          <!-- QUESTION 3 (pick one) -->
-          <fieldset class="tool-step" data-type="choice">
-            <legend class="tool-question">Where will the piece live?</legend>
-            <div class="tool-choices">
-              <label class="tool-choice"><input type="radio" name="place" value="Trade-show stand"><span>Trade-show stand</span></label>
-              <label class="tool-choice"><input type="radio" name="place" value="Lobby or office"><span>Lobby or office</span></label>
-              <label class="tool-choice"><input type="radio" name="place" value="Launch event"><span>Launch event</span></label>
-              <label class="tool-choice"><input type="radio" name="place" value="Several places (touring)"><span>Several places (touring)</span></label>
-            </div>
           </fieldset>
 
           <!-- QUESTION 4 (pick several) -->
@@ -142,15 +139,14 @@
           <!-- LAST STEP: their details -->
           <fieldset class="tool-step" data-type="details">
             <legend class="tool-question">Where should we send your concept?</legend>
-            <p class="tool-hint">Use your work email. We'll send a short code to confirm it.</p>
+            <p class="tool-hint">Only your email is needed. We'll send a short code to confirm it.</p>
             <div class="tool-fields">
               <label class="tool-field"><span>Your name</span><input type="text" name="name" autocomplete="name"></label>
               <label class="tool-field"><span>Company</span><input type="text" name="company" autocomplete="organization"></label>
-              <label class="tool-field"><span>Work email</span><input type="email" name="email" autocomplete="email" inputmode="email"></label>
+              <label class="tool-field"><span>Work email (required)</span><input type="email" name="email" autocomplete="email" inputmode="email"></label>
               <label class="tool-field"><span>Your role</span><input type="text" name="role" autocomplete="organization-title" placeholder="e.g. Head of Marketing"></label>
             </div>
-            <label class="tool-check tool-consent"><input type="checkbox" name="consent" value="yes">
-              <span>I agree that my answers are used to make my concept and to contact me about it. They're never shared or sold.</span></label>
+            <p class="tool-consent">Your answers are used only to make your concept and to contact you about it. They're never shared or sold.</p>
           </fieldset>
 
           <!-- After sending: the code from their email -->

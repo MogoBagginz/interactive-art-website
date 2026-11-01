@@ -173,6 +173,8 @@ em { font-style: normal; color: var(--accent-on-light); }
 .hero .frame, .about .frame { aspect-ratio: var(--shape-landscape); max-height: 70vh; }
 .hero > * { margin: 0; max-width: none; }
 .hero h1 { font-size: clamp(3rem, 5.4vw, 5.4rem); line-height: 1; letter-spacing: -.04em; }
+/* "TOUCAN CREATIVE TECHNOLOGY" heading on the home page */
+.hero h1.brand-title { font-size: clamp(2.6rem, 4.6vw, 4.6rem); text-transform: uppercase; letter-spacing: -.01em; line-height: 1.02; }
 .hero-intro { max-width: 580px; margin-top: 28px; font-size: 1.15rem; color: var(--muted); }
 
 
@@ -217,6 +219,10 @@ em { font-style: normal; color: var(--accent-on-light); }
 .slide-text { display: grid; grid-template-columns: 170px 1fr; gap: 20px; padding-top: 18px; }
 .slide-step { font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-on-light); }
 .slide-text p { margin: 0; color: var(--muted); max-width: 640px; }
+
+/* Featured project on a dark background */
+.dark .featured-meta, .dark .featured-intro > p, .dark .slide-text p { color: #c8c2b8; }
+.dark .slide-step { color: var(--accent); }
 
 /* Round arrow buttons on top of the picture */
 .slider-arrow {
@@ -448,7 +454,7 @@ em { font-style: normal; color: var(--accent-on-light); }
 
 .tool-check { display: flex; gap: 10px; align-items: flex-start; margin-top: 16px; cursor: pointer; color: var(--muted); font-size: .95rem; }
 .tool-check input { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--ink); flex: none; }
-.tool-consent { margin-top: 22px; font-size: .88rem; line-height: 1.5; }
+.tool-consent { margin: 22px 0 0; font-size: .88rem; line-height: 1.5; color: var(--muted); }
 
 /* Your details */
 .tool-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }

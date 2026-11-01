@@ -74,9 +74,8 @@ const CONCEPT_SERVER = "";
       return el("no_date").checked || el("date").value ? null : "Please pick a date, or tick \"No date yet\".";
     }
     if (type === "details") {
-      if (!el("name").value.trim() || !el("company").value.trim()) return "Please add your name and company.";
+      // only the email is required here
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el("email").value.trim())) return "Please check your email address.";
-      if (!el("consent").checked) return "Please tick the box to agree.";
       return null;
     }
     if (type === "code") return /^\d{6}$/.test(el("code").value.trim()) ? null : "Please enter the 6-digit code.";
@@ -148,6 +147,7 @@ const CONCEPT_SERVER = "";
   }
 
   form.addEventListener("submit", e => { e.preventDefault(); goNext(); });
+  form.addEventListener("input", () => { error.textContent = ""; });   // a correction clears the message
   back.addEventListener("click", () => show(Math.max(0, current - 1)));
 
   // Picking a single choice moves straight on
