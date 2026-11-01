@@ -113,6 +113,16 @@ If something breaks, undo your last change.
 
 ---
 
+## The design tool
+
+`concept.html` is the free interactive sculpture design tool. Every page links to it from the menu and the footer ("Free design tool").
+
+- The words on the page and the 8 questions: edit `concept.html`.
+- The menu and footer link: `TOOLS` at the top of `script.js`. Change the wording there, or add a line for a new tool page.
+- The tool doesn't send answers anywhere yet. When its server is ready, put the address in `CONCEPT_SERVER` at the top of `concept-tool.js`.
+
+---
+
 ## Landing pages
 
 These are separate pages for different kinds of clients. They're good for linking from emails, ads or Instagram:

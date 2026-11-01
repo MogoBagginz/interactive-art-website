@@ -21,6 +21,12 @@ const MENU = [
   { text: "About",           link: "#about" },
 ];
 
+// Tools, shown in the menu and the footer of every page.
+// To add another tool page later, copy the line and change the words and file name.
+const TOOLS = [
+  { text: "Free design tool",         link: "concept.html" },
+];
+
 // Landing pages, listed in the footer of every page
 const LANDING_PAGES = [
   { text: "Artists",                  link: "artists.html" },
@@ -52,7 +58,9 @@ function buildHeader() {
   const spot = document.querySelector("[data-site-header]");
   if (!spot) return;
 
-  const menuLinks = MENU.map(item => `<a href="${homeLink(item.link)}">${item.text}</a>`).join("");
+  const here = location.pathname.split("/").pop() || "index.html";
+  const menuLinks = [...MENU, ...TOOLS].map(item =>
+    `<a href="${homeLink(item.link)}"${item.link === here ? ' aria-current="page"' : ""}>${item.text}</a>`).join("");
   const contactLink = "#contact"; // every page has its own contact section at the bottom
 
   spot.outerHTML = `
@@ -84,7 +92,7 @@ function buildFooter() {
   const spot = document.querySelector("[data-site-footer]");
   if (!spot) return;
 
-  const pageLinks = LANDING_PAGES.map(p => `<a href="${p.link}">${p.text}</a>`).join("");
+  const pageLinks = [...TOOLS, ...LANDING_PAGES].map(p => `<a href="${p.link}">${p.text}</a>`).join("");
 
   spot.outerHTML = `
     <footer class="footer">

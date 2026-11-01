@@ -85,6 +85,7 @@ em { font-style: normal; color: var(--accent-on-light); }
 .nav { display: flex; align-items: center; gap: 28px; font-size: .82rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
 .nav a { opacity: .8; }
 .nav a:hover { opacity: 1; }
+.nav a[aria-current="page"] { opacity: 1; }   /* the page you're on */
 .nav .nav-cta { opacity: 1; border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
 .menu-toggle { display: none; background: none; border: 1px solid var(--line); padding: 8px 14px; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; cursor: pointer; }
 
