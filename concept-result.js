@@ -5,6 +5,10 @@
    2. runs the invisible bot check (Cloudflare Turnstile)
    3. asks the server for the concept, showing progress steps meanwhile
    4. shows the concept, or a friendly message if something's not right
+   5. "Generate mock-up images": the server emails the visitor a "Verify"
+      link and this page says "Check your email". Clicking the link opens
+      concept-verify.html, which has the images and design PDF made and
+      emailed (they aren't shown here, so only a real inbox gets them)
 
    The parts you might want to edit are SETTINGS and MESSAGES.
    ===================================================================== */
@@ -17,7 +21,6 @@ const SETTINGS = {
   server: "https://concept-tool.mugz-wood.workers.dev",
   turnstileSiteKey: "0x4AAAAAAFvhEzx0kfvOMY-w",       // public key: fine to be in this file
   email: "info@toucancreative.tech",
-  imagesLive: false,     // mock-up images aren't built yet (Task 6). Set to true when they are.
   timeoutSeconds: 120,   // give up waiting after this long
 };
 
@@ -107,24 +110,31 @@ const MESSAGES = {
     showState("message");
   }
 
-  /* ---------- The bot check ---------- */
-  function getTurnstileToken() {
-    return new Promise((resolve, reject) => {
-      const giveUp = setTimeout(() => reject(new Error("turnstile-timeout")), 20000);
-      window.onTurnstileLoad = () => {
-        try {
-          window.turnstile.render("#turnstile", {
-            sitekey: onMyComputer ? TEST_SITE_KEY : SETTINGS.turnstileSiteKey,
-            callback: token => { clearTimeout(giveUp); resolve(token); },
-            "error-callback": () => { clearTimeout(giveUp); reject(new Error("turnstile-error")); },
-          });
-        } catch (e) { clearTimeout(giveUp); reject(e); }
-      };
+  /* ---------- The bot check (a fresh check for every request) ---------- */
+  let turnstileReady;
+  function loadTurnstile() {
+    if (!turnstileReady) turnstileReady = new Promise((resolve, reject) => {
+      window.onTurnstileLoad = () => resolve(window.turnstile);
       const s = document.createElement("script");
       s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad";
       s.async = true;
-      s.onerror = () => { clearTimeout(giveUp); reject(new Error("turnstile-load")); };
+      s.onerror = () => { turnstileReady = null; reject(new Error("turnstile-load")); };
       document.head.appendChild(s);
+    });
+    return turnstileReady;
+  }
+  function getTurnstileToken(holder) {
+    return new Promise((resolve, reject) => {
+      const giveUp = setTimeout(() => reject(new Error("turnstile-timeout")), 20000);
+      loadTurnstile().then(turnstile => {
+        const box = document.createElement("div");
+        $(holder).replaceChildren(box);
+        turnstile.render(box, {
+          sitekey: onMyComputer ? TEST_SITE_KEY : SETTINGS.turnstileSiteKey,
+          callback: token => { clearTimeout(giveUp); resolve(token); },
+          "error-callback": () => { clearTimeout(giveUp); reject(new Error("turnstile-error")); },
+        });
+      }).catch(e => { clearTimeout(giveUp); reject(e); });
     });
   }
 
@@ -134,7 +144,7 @@ const MESSAGES = {
     startProgress();
 
     let token;
-    try { token = await getTurnstileToken(); }
+    try { token = await getTurnstileToken("#turnstile"); }
     catch { stopProgress(); return showMessage("blocked"); }
 
     const controller = new AbortController();
@@ -166,20 +176,80 @@ const MESSAGES = {
     showMessage(MESSAGES[data.status] ? data.status : "failed", data.message);
   }
 
-  /* ---------- Mock-up images form ---------- */
+  /* ---------- Mock-up images: email a "Verify" link, then "Check your email" ---------- */
+  const SENT = "toucan-concept-images";
   const imagesForm = $(".images-form");
-  imagesForm.addEventListener("submit", e => {
-    e.preventDefault();
-    const error = imagesForm.querySelector(".images-error");
-    const email = imagesForm.elements.email.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { error.textContent = "Please check your email address."; return; }
-    if (!SETTINGS.imagesLive) {
-      error.textContent = `Mock-up images aren't ready yet. Email ${SETTINGS.email} and I'll send you some.`;
-      return;
+  const imagesError = imagesForm.querySelector(".images-error");
+  const imagesButton = imagesForm.querySelector("button");
+  const imagesWaiting = $("[data-images-waiting]");
+  const imagesDone = $("[data-images-done]");
+  const againButton = $("[data-images-again]");
+  const againError = $("[data-images-again-error]");
+
+  function showCheckEmail(email) {
+    imagesDone.querySelector("[data-images-done-text]").textContent =
+      `I've sent a link to ${email}. Click Verify in that email, and your mock-up images and a PDF of the whole design will follow in about a minute.`;
+    imagesForm.hidden = true;
+    imagesDone.hidden = false;
+  }
+
+  // Asks the server to email the "Verify" link. Returns an error message, or "" if it was sent.
+  async function askForLink(email) {
+    const saved = read(RESULT);
+    const id = saved && saved.data && saved.data.id;
+    if (!id) return "Please make your concept again, then ask for images.";
+    try {
+      const token = await getTurnstileToken("#turnstile-images");
+      const res = await fetch(SETTINGS.server.replace(/\/$/, "") + "/images", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, email, turnstileToken: token }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (onMyComputer && data.debug) console.info("Design tool images (test mode):", data.debug);
+      if (data.status !== "check_email") return data.message || "Sorry, the email couldn't be sent. Please try again.";
+      write(SENT, { id, email });
+      return "";
+    } catch (err) {
+      return String(err.message).startsWith("turnstile")
+        ? "The page couldn't check your request. Please try again."
+        : "Couldn't connect. Please check your internet connection and try again.";
     }
-    // Task 6: send the email and concept to the server here
+  }
+
+  imagesForm.addEventListener("submit", async e => {
+    e.preventDefault();
+    const email = imagesForm.elements.email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { imagesError.textContent = "Please check your email address."; return; }
+    imagesError.textContent = "";
+    imagesButton.disabled = true;
+    imagesWaiting.hidden = false;
+    const problem = await askForLink(email);
+    imagesButton.disabled = false;
+    imagesWaiting.hidden = true;
+    if (problem) imagesError.textContent = problem;
+    else showCheckEmail(email);
   });
-  imagesForm.addEventListener("input", () => { imagesForm.querySelector(".images-error").textContent = ""; });
+  imagesForm.addEventListener("input", () => { imagesError.textContent = ""; });
+
+  // "send it again"
+  againButton.addEventListener("click", async () => {
+    const sent = read(SENT);
+    if (!sent) return;
+    againButton.disabled = true;
+    againError.textContent = "";
+    const problem = await askForLink(sent.email);
+    againButton.disabled = false;
+    againError.textContent = problem || `Sent again to ${sent.email}.`;
+  });
+  // "use a different email"
+  $("[data-images-change]").addEventListener("click", () => {
+    againError.textContent = "";
+    imagesDone.hidden = true;
+    imagesForm.hidden = false;
+    imagesForm.elements.email.select();
+    imagesForm.elements.email.focus();
+  });
 
   /* ---------- Start ---------- */
   const answers = read(ANSWERS);
@@ -187,7 +257,12 @@ const MESSAGES = {
 
   // Already made for these exact answers (e.g. the page was reloaded)? Show it again without asking twice.
   const saved = read(RESULT);
-  if (saved && saved.answers === JSON.stringify(answers) && saved.data) return showConcept(saved.data);
+  if (saved && saved.answers === JSON.stringify(answers) && saved.data) {
+    showConcept(saved.data);
+    const sent = read(SENT);
+    if (sent && sent.id === saved.data.id) showCheckEmail(sent.email);
+    return;
+  }
 
   requestConcept(answers);
 })();

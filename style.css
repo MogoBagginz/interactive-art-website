@@ -548,3 +548,28 @@ em { font-style: normal; color: var(--accent-on-light); }
 
 /* the mock-up images band and "How it works" are both dark: keep them apart */
 .images + .dark { border-top: 1px solid #2c2c2c; }
+
+/* Mock-up images: the waiting line, and the "Sent" message (images are emailed, not shown) */
+.images-waiting { grid-column: 1 / -1; margin: 0; color: var(--accent); font-weight: 600; display: flex; align-items: center; gap: 12px; }
+.images-waiting::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--accent); animation: tool-pulse 1.4s ease-in-out infinite; flex: none; }
+.images-form .turnstile-box { grid-column: 1 / -1; margin-top: 0; }
+.images-form .button:disabled { opacity: .6; cursor: wait; }
+.images-done { max-width: 720px; }
+.images-done-title { margin: 0 0 12px; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; line-height: 1.15; color: var(--paper); }
+.images-done-text { margin: 0 0 18px; color: #c8c2b8; font-size: 1.1rem; }
+.images-done a { color: var(--accent); border-bottom: 1px solid var(--accent); }
+@media (prefers-reduced-motion: reduce) { .images-waiting::before { animation: none; } }
+/* "send it again" and "use a different email": buttons that look like links */
+.link-button { padding: 0; font: inherit; color: var(--accent); background: none; border: 0; border-bottom: 1px solid var(--accent); cursor: pointer; }
+.link-button:disabled { opacity: .6; cursor: wait; }
+.images-done .images-error { margin-top: 12px; min-height: 0; color: #c8c2b8; }
+
+
+/* =====================================================================
+   20. VERIFY PAGE (concept-verify.html)
+   The page the "Verify" link in the email opens. It reuses the
+   answers page's look (part 19).
+   ===================================================================== */
+.verify { min-height: 60vh; }
+.verify .hero-intro { max-width: 680px; }
+.verify-sent-text { font-size: 1.15rem; max-width: 680px; margin: 22px 0 0; }

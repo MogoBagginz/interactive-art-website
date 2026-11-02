@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email confirmed — Toucan Creative Technology</title>
+  <meta name="description" content="Confirm your email to get mock-up images and a PDF of your sculpture design.">
+  <meta name="author" content="Murali Wood">
+  <meta name="theme-color" content="#111111">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<!--
+  TOOL PAGE: the "Verify" page of the design tool
+  ===========================================================
+  The "Verify" button in the email opens this page (with a code at the end of the address).
+  concept-verify.js tells the server the email is confirmed; the server then makes the
+  mock-up images and the design PDF and emails them (about 30–45 seconds).
+  • Words: edit them right here in this file.
+  • The messages for an expired link and so on: edit MESSAGES in concept-verify.js.
+-->
+
+<body class="landing">
+
+  <div data-site-header></div>
+
+  <main>
+    <section class="result verify section">
+
+      <!-- WORKING: shown while the images and PDF are made -->
+      <div class="result-state" data-state="loading">
+        <span class="label">Free design tool</span>
+        <h1>Email <em>confirmed.</em></h1>
+        <p class="hero-intro">Now making your design. This takes about 30–45 seconds. Please keep this page open.</p>
+        <ol class="progress-steps" aria-live="polite">
+          <li data-step="confirmed">Email confirmed</li>
+          <li data-step="images">Making your mock-up images</li>
+          <li data-step="pdf">Building your design PDF</li>
+          <li data-step="send">Sending it to your inbox</li>
+        </ol>
+        <!-- The invisible bot check runs here -->
+        <div id="turnstile" class="turnstile-box"></div>
+      </div>
+
+      <!-- SENT -->
+      <div class="result-state" data-state="sent" hidden>
+        <span class="label">Free design tool</span>
+        <h1>Sent. Check your <em>inbox.</em></h1>
+        <p class="verify-sent-text" data-field="sent-text"></p>
+        <p class="hero-intro">Nothing there after a few minutes? Check your spam folder, or email me at
+          <a class="text-link" href="mailto:info@toucancreative.tech">info@toucancreative.tech</a>.</p>
+        <div class="actions">
+          <a class="button" href="concept.html">Design another sculpture</a>
+          <a class="text-link" href="index.html">See my work</a>
+        </div>
+      </div>
+
+      <!-- MESSAGES: expired link, already sent, errors -->
+      <div class="result-state" data-state="message" hidden>
+        <span class="label" data-field="message-label"></span>
+        <h1 data-field="message-title"></h1>
+        <p class="hero-intro" data-field="message-text"></p>
+        <div class="actions">
+          <a class="button" data-field="message-button" href="concept.html"></a>
+          <a class="text-link" data-field="message-email" href="mailto:info@toucancreative.tech?subject=Design%20tool">Email me ↗</a>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <div data-site-footer></div>
+
+  <script src="photos-and-videos.js"></script>
+  <script src="script.js"></script>
+  <script src="concept-verify.js"></script>
+</body>
+</html>

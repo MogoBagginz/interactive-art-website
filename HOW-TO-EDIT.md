@@ -120,6 +120,7 @@ If something breaks, undo your last change.
 - The words on the page and the 8 questions: edit `concept.html`.
 - The menu and footer link: `TOOLS` at the top of `script.js`. Change the wording there, or add a line for a new tool page.
 - After the last question, visitors go to `concept-result.html`, the answers page. Its words are in that file; its messages (daily limit, "tell me more", errors) are in `MESSAGES` at the top of `concept-result.js`.
+- Asking for mock-up images emails the visitor a "Verify" link. It opens `concept-verify.html`, which has the images and the design PDF made and emailed. Its words are in that file; its messages (expired link, already sent, errors) are in `MESSAGES` at the top of `concept-verify.js`.
 - The server that writes the concepts is in the `concept-worker` folder (see its README).
 
 **Trying the tool on your computer:** double-clicking won't work for the tool. In a terminal, in the website folder, run
