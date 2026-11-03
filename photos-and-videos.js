@@ -30,7 +30,10 @@
 const PHOTOS = {
 
   // Home page
-  home_top:   { file: "images/home-top.jpg",  alt: "Interactive sculpture by Toucan Creative Technology" },
+  // TEMPORARY photo until permission is given for the real one.
+  // To switch back: delete the next line, then remove the // from the line after it.
+  home_top:   { file: "images/home-top-temporary.jpg", alt: "Interactive light sculpture at an evening event", focus: "62% center" },
+  // home_top:   { file: "images/home-top.jpg",  alt: "Interactive sculpture by Toucan Creative Technology" },
   about:      { file: "images/about-murali.jpg", alt: "Murali Wood, founder of Toucan Creative Technology", focus: "30% 40%" },
 
   // Landing pages (one photo at the top of each)
@@ -67,11 +70,13 @@ const PHOTOS = {
    --------------------------------------------------------------------- */
 const FEATURED_SLIDES = [
 
-  { video: "videos/featured/finished.mp4", poster: "images/featured/finished-poster.jpg", withSound: true, step: "Finished",
-    caption: "Finished electronics, ready to hand over to the artist. Check back soon for updates." },
+  // HIDDEN for now: remove the // at the start of the next 2 lines to show this slide again
+  // { video: "videos/featured/finished.mp4", poster: "images/featured/finished-poster.jpg", withSound: true, step: "Finished",
+  //   caption: "Finished electronics, ready to hand over to the artist. Check back soon for updates." },
 
-  { photo: "images/featured/concept.jpg", step: "Concept",
-    caption: "The artist's renders. A sculpture that responds to a visitor's heartbeat, read through a sensor." },
+  // HIDDEN for now: remove the // at the start of the next 2 lines to show this slide again
+  // { photo: "images/featured/concept.jpg", step: "Concept",
+  //   caption: "The artist's renders. A sculpture that responds to a visitor's heartbeat, read through a sensor." },
 
   // Add the research clip when it's ready, then remove the // at the start of the next line:
   // { video: "videos/featured/research.mp4", poster: "images/featured/research-poster.jpg", step: "Research", caption: "Working out how to bring it to life, one design decision at a time." },

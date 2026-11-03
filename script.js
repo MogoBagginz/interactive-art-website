@@ -18,7 +18,7 @@ const SITE_VERSION = "M0.0.2";
 const EMAIL = "info@toucancreative.tech";
 
 const MENU = [
-  { text: "Work",            link: "#work" },
+  // { text: "Work",            link: "#work" },     // hidden for now — remove the // to show
   // { text: "Videos",          link: "#videos" },   // hidden for now — remove the // to show
   // { text: "Who I work with", link: "#who" },      // hidden for now — remove the // to show
   { text: "About",           link: "#about" },
