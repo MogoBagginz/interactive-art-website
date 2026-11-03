@@ -168,9 +168,17 @@ Each set of images costs about $0.07; `MONTHLY_IMAGE_LIMIT` caps the total. Imag
 1. Sign up at **resend.com**.
 2. **Domains → Add domain** → `toucancreative.tech`. Choose the EU region (Frankfurt) if offered.
    **Don't turn on "Receiving"**: your info@ mail must keep going through Cloudflare Email Routing to Gmail.
-3. Add the DNS records: either click **Sign in to Cloudflare** to let Resend add them, or add them yourself in
-   Cloudflare → **DNS**: an **MX** and a **TXT** record named `send`, and a **TXT** record named `resend._domainkey`
-   (set to **DNS only**). These only use the `send.` sub-address, so your existing email records aren't touched.
+3. Add the DNS records by hand. Keep Resend's DNS page (Domains → toucancreative.tech) open in one tab, and
+   Cloudflare → toucancreative.tech → **DNS → Records** in another. For each record on Resend's page, click
+   **Add record** in Cloudflare, pick the **Type**, then use Resend's copy buttons for **Name** and **Content**
+   (the long values are shortened on screen, so never type them). Leave TTL on Auto and click **Save**.
+   - **TXT** `resend._domainkey` (DKIM: proves the email is really from you)
+   - **CNAME** `send` and **CNAME** `rsend` (SPF: lets Resend send for you). Switch **Proxy status** off,
+     to **DNS only** (grey cloud)
+   - **TXT** `_dmarc` (optional but recommended: Gmail trusts mail more with it). Skip it if Cloudflare already
+     has a `_dmarc` record
+   These only use new names, so your info@ email records (Cloudflare Email Routing) aren't touched.
+   Leave **Enable receiving** on Resend switched off.
 4. Click **Verify DNS Records** and wait until the domain shows **Verified** (often minutes, up to a day).
 5. **API Keys → Create API key**: permission **Sending access**, domain `toucancreative.tech`. Copy it.
 

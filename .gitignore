@@ -11,3 +11,6 @@ node_modules/
 # Build output
 dist/
 build/
+
+# Photos waiting to be resized (see tools/prepare_photos.py)
+photos-inbox/

@@ -672,8 +672,8 @@ async function handleImages({ request, env, localTest, reply, debug, origin }) {
 
   if (env.RESEND_API_KEY) {
     const { subject, html, text } = verifyEmail(stored, link);
-    const sent = await sendEmail(env, { to: email, subject, html, text });
-    if (!sent) return reply(502, { status: "not_sent", message: MESSAGES.notSent });
+    const problem = await sendEmail(env, { to: email, subject, html, text });
+    if (problem) return reply(502, { status: "not_sent", message: MESSAGES.notSent, ...debug(problem) });
   }
   return reply(200, { status: "check_email", email, ...debug(env.RESEND_API_KEY ? undefined
     : `RESEND_API_KEY isn't set, so no email was sent. Open the Verify link yourself: ${link}`) });
@@ -721,9 +721,10 @@ async function handleVerify({ request, env, ctx, localTest, reply, debug, url })
   let emailed = false;
   if (env.RESEND_API_KEY) {
     const { subject, html, text } = visitorEmail(stored, images);
-    emailed = await sendEmail(env, { to: email, subject, html, text,
+    const problem = await sendEmail(env, { to: email, subject, html, text,
       attachments: [{ filename: pdfFileName(stored.concept), content: pdfBase64 }] });
-    if (!emailed) { await giveBack(); return reply(502, { status: "not_sent", message: MESSAGES.notSent }); }
+    if (problem) { await giveBack(); return reply(502, { status: "not_sent", message: MESSAGES.notSent, ...debug(problem) }); }
+    emailed = true;
   }
   await env.LIMITS.put(verifyKey, JSON.stringify({ ...ticket, sentAt: Date.now() }), linkTtl);
 
@@ -899,7 +900,7 @@ Button not working? Copy this into your browser:<br><a href="${esc(link)}" style
   return { subject: `Verify your email to get your ${c.name} design`, html, text };
 }
 
-// Sends an email through Resend. Returns true if Resend accepted it.
+// Sends an email through Resend. Returns "" if Resend accepted it, otherwise the reason.
 async function sendEmail(env, { to, subject, html, text, attachments }) {
   try {
     const res = await fetch("https://api.resend.com/emails", {
@@ -908,11 +909,15 @@ async function sendEmail(env, { to, subject, html, text, attachments }) {
       body: JSON.stringify({ from: SETTINGS.emailFrom, to: [to], reply_to: SETTINGS.replyTo, subject, html, text,
         ...(attachments ? { attachments } : {}) }),
     });
-    if (!res.ok) { console.error("Resend didn't send the email:", res.status, (await res.text()).slice(0, 300)); return false; }
-    return true;
+    if (!res.ok) {
+      const reason = `Resend refused the email (${res.status}): ${(await res.text()).slice(0, 300)}`;
+      console.error(reason);
+      return reason;
+    }
+    return "";
   } catch (e) {
     console.error("Couldn't reach Resend:", e);
-    return false;
+    return "Couldn't reach Resend: " + String(e && e.message || e);
   }
 }
 
