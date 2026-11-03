@@ -12,6 +12,16 @@
 /* =====================================================================
    1. COLOURS, FONTS & SIZES  — safe to edit
    ===================================================================== */
+/* The Montserrat font, hosted on this site (not loaded from Google, so visitors'
+   IP addresses aren't sent to Google). The file lives in the fonts folder. */
+@font-face {
+  font-family: "Montserrat";
+  src: url("fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --ink: #111111;            /* main text + dark sections            */
   --paper: #EEE1D7;          /* main background                      */
@@ -573,3 +583,27 @@ em { font-style: normal; color: var(--accent-on-light); }
 .verify { min-height: 60vh; }
 .verify .hero-intro { max-width: 680px; }
 .verify-sent-text { font-size: 1.15rem; max-width: 680px; margin: 22px 0 0; }
+
+
+/* =====================================================================
+   21. PRIVACY AND IMPRESSUM PAGES (privacy.html, impressum.html)
+   ===================================================================== */
+.legal { padding-top: 80px; padding-bottom: 100px; }
+.legal-body { max-width: 760px; margin-left: 0; }
+.legal h1 { font-size: clamp(2.4rem, 4.6vw, 4rem); margin-bottom: 18px; }
+.legal h2 { font-size: 1.45rem; margin: 48px 0 14px; }
+.legal h3 { font-size: 1.1rem; margin: 28px 0 8px; }
+.legal p, .legal li { color: var(--muted); }
+.legal ul { padding-left: 1.2em; margin: 0 0 1em; }
+.legal li { margin-bottom: 6px; }
+.legal a { color: var(--accent-on-light); border-bottom: 1px solid currentColor; }
+.legal .updated { font-size: .9rem; }
+.legal address { font-style: normal; color: var(--muted); margin-bottom: 1em; }
+.todo { background: #ffe58a; color: #111; padding: 0 4px; }   /* placeholders still to fill in */
+
+/* Privacy and Impressum links in the footer */
+.copyright { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 22px; }
+.copyright p { margin: 0; }
+.footer-legal { display: flex; gap: 22px; }
+.images-note a { color: var(--accent); border-bottom: 1px solid var(--accent); }
+.footer-legal a:hover { color: var(--paper); }

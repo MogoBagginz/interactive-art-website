@@ -8,6 +8,9 @@
    Photos and videos are set in photos-and-videos.js, not here.
    ===================================================================== */
 
+// Website version. Raise it (M0.0.2, M0.0.3…) each time you publish a change to main.
+const SITE_VERSION = "M0.0.2";
+
 
 /* ---------------------------------------------------------------------
    MENU & FOOTER  — safe to edit
@@ -25,6 +28,12 @@ const MENU = [
 // To add another tool page later, copy the line and change the words and file name.
 const TOOLS = [
   { text: "Free design tool",         link: "concept.html" },
+];
+
+// Legal pages, linked at the bottom of the footer on every page
+const LEGAL_PAGES = [
+  { text: "Privacy",   link: "privacy.html" },
+  { text: "Impressum", link: "impressum.html" },
 ];
 
 // Landing pages, listed in the footer of every page
@@ -105,7 +114,10 @@ function buildFooter() {
         <a href="${isHomePage ? "#top" : "index.html"}">Home</a>
         ${pageLinks}
       </nav>
-      <p class="copyright">© ${new Date().getFullYear()} Toucan Creative Technology</p>
+      <div class="copyright">
+        <p>© ${new Date().getFullYear()} Toucan Creative Technology</p>
+        <nav class="footer-legal" aria-label="Legal">${LEGAL_PAGES.map(p => `<a href="${p.link}">${p.text}</a>`).join("")}</nav>
+      </div>
     </footer>`;
 }
 

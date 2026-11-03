@@ -129,6 +129,23 @@ If something breaks, undo your last change.
 
 ---
 
+## Privacy policy and Impressum
+
+`privacy.html` and `impressum.html` are linked at the bottom of every page's footer (`LEGAL_PAGES` in `script.js`).
+Yellow highlighted text is a placeholder: fill it in and remove `class="todo"`. If you add a new service to the site
+(analytics, a newsletter, a booking tool…), add it to the privacy policy and change "Last updated".
+
+## Font
+
+The Montserrat font is hosted on the site itself (the `fonts` folder), not loaded from Google, so visitors' details
+aren't sent to Google. See `fonts/README.txt`. Don't add Google Fonts links back to the pages.
+
+## Version
+
+`SITE_VERSION` at the top of `script.js` (M0.0.1, M0.0.2…). Raise it each time you publish a change to main.
+
+---
+
 ## Landing pages
 
 These are separate pages for different kinds of clients. They're good for linking from emails, ads or Instagram:

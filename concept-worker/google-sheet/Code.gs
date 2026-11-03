@@ -10,6 +10,9 @@
    in Project Settings → Script properties, not in this file.
    ===================================================================== */
 
+// Script version. Raise it (GS0.0.3, GS0.0.4…) each time you deploy a changed Code.gs as a new version.
+const VERSION = "GS0.0.2";
+
 const SHEET_NAME = "Concepts";
 
 // The columns, in order. Columns you add to the right of these are left alone,

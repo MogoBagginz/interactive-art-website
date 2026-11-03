@@ -11,6 +11,11 @@ https://concept-tool.mugz-wood.workers.dev
 
 Secrets (the Anthropic API key, the Turnstile secret key) live only in Cloudflare, never in these files.
 
+**Versions.** Each part has its own version number, raised every time a changed copy goes live:
+- Website: `SITE_VERSION` in `script.js` (M0.0.1, M0.0.2…)
+- Server: `VERSION` in `worker.js` (CF0.0.1…). Opening the server address shows the live version.
+- Google Sheet script: `VERSION` in `google-sheet/Code.gs` (GS0.0.2…)
+
 ---
 
 ## First-time setup

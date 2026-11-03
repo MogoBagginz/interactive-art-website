@@ -29,6 +29,11 @@
    ===================================================================== */
 
 
+// Server version. Raise it (CF0.0.2, CF0.0.3…) each time you paste a changed worker.js into Cloudflare.
+// You can check which version is live by opening the server address in a browser.
+const VERSION = "CF0.0.2";
+
+
 /* ---------------------------------------------------------------------
    SETTINGS  — safe to edit
    --------------------------------------------------------------------- */
@@ -200,7 +205,7 @@ export default {
 
     if (request.method === "OPTIONS") return new Response(null, { status: allowed ? 204 : 403, headers: cors });
     if (request.method === "GET" && url.pathname === "/") {
-      return new Response("Toucan design tool server is running.", { headers: { "Content-Type": "text/plain" } });
+      return new Response(`Toucan design tool server is running. Version ${VERSION}.`, { headers: { "Content-Type": "text/plain" } });
     }
     // The mock-up images, for the page and the email
     if (request.method === "GET" && url.pathname.startsWith("/image/")) return serveImage(url, env);
@@ -843,7 +848,7 @@ ${spec.map(r => `<p ${p}><strong>${esc(r[0])}:</strong> ${esc(r[1])}</p>`).join(
 <p style="margin:24px 0 0;font:15px/1.6 Arial,Helvetica,sans-serif;color:#111">Murali Wood<br>Toucan Creative Technology<br><a href="${SETTINGS.website}" style="color:#8F5A10">toucancreative.tech</a></p>
 </td></tr>
 </table>
-<p style="margin:16px 0 0;font:12px/1.5 Arial,Helvetica,sans-serif;color:#555;max-width:640px">You're getting this because you asked for mock-up images on toucancreative.tech. Your details are never shared or sold.</p>
+<p style="margin:16px 0 0;font:12px/1.5 Arial,Helvetica,sans-serif;color:#555;max-width:640px">You're getting this because you asked for mock-up images on toucancreative.tech. Your details are never shared or sold. <a href="${SETTINGS.website}/privacy.html" style="color:#555">Privacy policy</a></p>
 </td></tr></table></body></html>`;
 
   const text = [
@@ -855,7 +860,8 @@ ${spec.map(r => `<p ${p}><strong>${esc(r[0])}:</strong> ${esc(r[1])}</p>`).join(
     "TECHNICAL DESIGN OUTLINE", ...spec.map(r => `${r[0]}: ${r[1]}`), "",
     "Want to take it further? I can turn this concept into a finished design for a few hundred euros. " +
     "If you're not happy with it, for any reason, you get your money back. Just reply to this email.", "",
-    "Murali Wood", "Toucan Creative Technology", SETTINGS.website,
+    "Murali Wood", "Toucan Creative Technology", SETTINGS.website, "",
+    `Privacy policy: ${SETTINGS.website}/privacy.html`,
   ].join("\n");
   return { subject: `Your sculpture concept: ${c.name}`, html, text };
 }
@@ -884,7 +890,7 @@ Button not working? Copy this into your browser:<br><a href="${esc(link)}" style
 <p style="margin:24px 0 0;font:15px/1.6 Arial,Helvetica,sans-serif;color:#111">Murali Wood<br>Toucan Creative Technology</p>
 </td></tr>
 </table>
-<p style="margin:16px 0 0;font:12px/1.5 Arial,Helvetica,sans-serif;color:#555;max-width:560px">Didn't ask for this? Just ignore this email and nothing will be sent.</p>
+<p style="margin:16px 0 0;font:12px/1.5 Arial,Helvetica,sans-serif;color:#555;max-width:560px">Didn't ask for this? Just ignore this email and nothing will be sent. <a href="${SETTINGS.website}/privacy.html" style="color:#555">Privacy policy</a></p>
 </td></tr></table></body></html>`;
   const text = [
     "Verify your email to get your design.", "",
@@ -896,6 +902,7 @@ Button not working? Copy this into your browser:<br><a href="${esc(link)}" style
     `It takes about a minute to arrive after you click. The link works for ${SETTINGS.verifyLinkHours} hours.`, "",
     "Murali Wood", "Toucan Creative Technology", "",
     "Didn't ask for this? Just ignore this email and nothing will be sent.",
+    `Privacy policy: ${SETTINGS.website}/privacy.html`,
   ].join("\n");
   return { subject: `Verify your email to get your ${c.name} design`, html, text };
 }
