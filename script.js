@@ -27,7 +27,7 @@ const MENU = [
 // Tools, shown in the menu and the footer of every page.
 // To add another tool page later, copy the line and change the words and file name.
 const TOOLS = [
-  { text: "Free design tool",         link: "concept.html" },
+  // { text: "Free design tool",         link: "concept.html" },   // hidden for now — remove the // to show
 ];
 
 // Legal pages, linked at the bottom of the footer on every page
